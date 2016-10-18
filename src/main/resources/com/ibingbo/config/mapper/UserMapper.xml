@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace是为了方便区别其他sql，可以适当的全命名 -->
+<mapper namespace="com.ibingbo.mappers.user">
+
+    <select id="getUser" resultType="com.ibingbo.models.User" parameterType="java.lang.String">
+        select * from user where id=#{value}
+    </select>
+
+</mapper>

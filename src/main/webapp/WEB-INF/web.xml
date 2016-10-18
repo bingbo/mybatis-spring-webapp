@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>Archetype Created Web Application</display-name>
+  <!-- 在jsp 2.0之后可以设置jsp文件的一些配置属性，如针对jsp可以使用el表达式,否则需要在jsp页面添加isELIgnored="false" -->
+  <jsp-config>
+    <jsp-property-group>
+        <url-pattern>*.jsp</url-pattern>
+        <el-ignored>false</el-ignored>
+    </jsp-property-group>
+  </jsp-config>
+  
+  <!-- ServletContext全局上下文配置，ContextLoaderListener上下文也要用到,默认在/WEB-INF/applicationContext.xml -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <!-- <param-value>/WEB-INF/dispatcher-servlet.xml</param-value> -->
+    <param-value>classpath:dispatcher-servlet.xml</param-value>
+  </context-param>
+  
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <servlet>
+    <servlet-name>dispatcher</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!-- DispatcherServlet配置，一些handler请求映射，如controller,service等，默认找/WEB-INF/dispatcher-servlet.xml -->
+    <init-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:dispatcher-servlet.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>dispatcher</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+  
+</web-app>
