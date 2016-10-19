@@ -20,6 +20,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>6.0.47</version>
+		</dependency>
+
 		<!-- spring dependency -->
 		<dependency>
 			<groupId>org.springframework</groupId>

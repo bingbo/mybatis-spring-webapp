@@ -7,29 +7,35 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Spring 4 MVC - Employee List</title>
-<%@ include file="../../../header.jsp"%>
+<%@ include file="./../../header.jsp"%>
 </head>
 <body>
-	<center>
-		<table>
-			<tr>
-				<th>id</th>
-				<th>username</th>
-				<th>password</th>
-				<th>email</th>
-			</tr>
-			<c:forEach var="user" items="${users}">
-				<tr>
-				    <td><c:out value="${user.id}" /></td>
-					<td><c:out value="${user.username}" /></td>
-					<td><c:out value="${user.password}" /></td>
-					<td><c:out value="${user.email}" /></td>
-				</tr>
-			</c:forEach>
-		</table>
-		
+	<div class="container">
+		<center>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>id</th>
+						<th>username</th>
+						<th>password</th>
+						<th>email</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="user" items="${users}">
+						<tr>
+							<td><c:out value="${user.id}" /></td>
+							<td><c:out value="${user.name}" /></td>
+							<td><c:out value="${user.password}" /></td>
+							<td><c:out value="${user.email}" /></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
 
-	</center>
+
+		</center>
+	</div>
 </body>
-<%@ include file="../../../footer.jsp"%>
+<%@ include file="./../../footer.jsp"%>
 </html>

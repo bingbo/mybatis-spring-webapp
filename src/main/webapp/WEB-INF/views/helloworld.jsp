@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Spring 4 MVC -HelloWorld</title>
-<%@ include file="../../../header.jsp" %>
+<%@ include file="./../../header.jsp" %>
 </head>
 <body>
     <center>
@@ -14,5 +14,5 @@
         </h2>
     </center>
 </body>
-<%@ include file="../../../footer.jsp" %>
+<%@ include file="./../../footer.jsp" %>
 </html>
