@@ -8,5 +8,8 @@
     <select id="getUser" resultType="com.ibingbo.models.User" parameterType="java.lang.String">
         select * from user where id=#{value}
     </select>
+    <select id="getUserList" resultType="java.util.ArrayList">
+        select * from user 
+    </select>
 
 </mapper>
