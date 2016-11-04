@@ -10,32 +10,38 @@
 <%@ include file="./../../header.jsp"%>
 </head>
 <body>
-	<div class="container">
-		<center>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>id</th>
-						<th>username</th>
-						<th>password</th>
-						<th>email</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="user" items="${users}">
+
+	<div class="wrap">
+
+		<%@ include file="./../../nav.jsp"%>
+
+		<div class="container">
+			<div class="site-index">
+				<table class="table">
+					<thead>
 						<tr>
-							<td><c:out value="${user.id}" /></td>
-							<td><c:out value="${user.name}" /></td>
-							<td><c:out value="${user.password}" /></td>
-							<td><c:out value="${user.email}" /></td>
+							<th>id</th>
+							<th>username</th>
+							<th>password</th>
+							<th>email</th>
 						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-
-
-		</center>
+					</thead>
+					<tbody>
+						<c:forEach var="user" items="${users}">
+							<tr>
+								<td><c:out value="${user.id}" /></td>
+								<td><c:out value="${user.name}" /></td>
+								<td><c:out value="${user.password}" /></td>
+								<td><c:out value="${user.email}" /></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
+
+	<%@ include file="./../../footer.jsp"%>
 </body>
-<%@ include file="./../../footer.jsp"%>
+
 </html>

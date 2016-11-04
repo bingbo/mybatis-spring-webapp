@@ -9,11 +9,13 @@ import com.ibingbo.models.User;
 
 public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao {
 
+	@Override
 	public User getUser(String userId) {
 		// TODO Auto-generated method stub
 		return (User)this.getSqlSession().selectOne("com.ibingbo.mappers.user.getUser",userId);
 	}
 	
+	@Override
 	public List<User> getUserList(){
 		return (List)this.getSqlSession().selectList("com.ibingbo.mappers.user.getUserList");
 		

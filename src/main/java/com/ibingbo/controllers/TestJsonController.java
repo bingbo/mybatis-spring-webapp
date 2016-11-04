@@ -3,9 +3,10 @@ package com.ibingbo.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -13,6 +14,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @RequestMapping("/json")
 @EnableWebMvc
 public class TestJsonController {
+	
+	private static final Log logger= LogFactory.getLog(TestJsonController.class.getName());
 
 	@RequestMapping("/get")
 	@ResponseBody
@@ -21,13 +24,16 @@ public class TestJsonController {
 		res.put("name", "bill");
 		res.put("age", "30");
 		res.put("email", "bill@126.com");
+		logger.debug("test log");
 		return res;
 	}
 	
 	@RequestMapping("/out")
 	@ResponseBody
 	public String outJson(){
-		return "{\"name\":\"bill\"}";
+		String result = "{\"name\":\"bill\"}";
+		logger.debug(result);
+		return result;
 	}
 	
 	@RequestMapping("test")

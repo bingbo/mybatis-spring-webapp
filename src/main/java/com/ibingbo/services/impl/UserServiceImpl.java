@@ -15,11 +15,13 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 
+	@Override
 	public User getUserById(String id) {
 		// TODO Auto-generated method stub
 		return this.userDao.getUser(id);
 	}
 	
+	@Override
 	public List<User> getUserList(){
 		return this.userDao.getUserList();
 		

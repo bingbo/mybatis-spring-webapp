@@ -9,20 +9,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Spring 4 MVC - HelloWorld Index Page</title>
-<%@ include file="header.jsp" %>
+<%@ include file="header.jsp"%>
 </head>
 <body>
 
-	<center>
-		<h2>Hello World</h2>
-		<h3>
-			<a href="say/hello?name=Eric">Click Here</a>
-		</h3>
-		<h3>
-            <a href="employee">Employee List</a>
-        </h3>
-	</center>
+	<div class="wrap">
+
+		<%@ include file="nav.jsp"%>
+
+		<div class="container">
+			<div class="site-index">hello,welcome!!!</div>
+		</div>
+	</div>
+
+	<%@ include file="footer.jsp"%>
 </body>
 
-<%@ include file="footer.jsp" %>
+
 </html>
