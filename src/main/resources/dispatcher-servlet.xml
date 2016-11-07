@@ -105,4 +105,7 @@ http://www.springframework.org/schema/mvc
 	<!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> <property 
 		name="basePackage" value="com.ibingbo.config.mapper" /> </bean> -->
 	<!-- <mybatis:scan base-package="com.ibingbo.dao" /> -->
+	
+	
+	<import resource="classpath:database-conf.xml"/>
 </beans>
