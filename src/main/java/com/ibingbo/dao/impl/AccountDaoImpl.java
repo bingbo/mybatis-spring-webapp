@@ -12,7 +12,7 @@ public class AccountDaoImpl extends SqlSessionDaoSupport implements AccountDao {
 	@Override
 	public List<Account> getAccounts() {
 		// TODO Auto-generated method stub
-		return (List)this.getSqlSession().selectList("com.ibingbo.mappers.account.getAccountList");
+		return (List)this.getSqlSession().selectList("com.ibingbo.mappers.account.getAccounts");
 	}
 
 }

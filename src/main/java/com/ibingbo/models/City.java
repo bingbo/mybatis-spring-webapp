@@ -32,7 +32,7 @@ public class City implements Serializable {
 	private String area_code;
 	private String zip_code;
 	private int status;
-	private int zequ;
+	private int sequ;
 	private String update_user;
 	private Date update_time;
 	private String s_name;
@@ -200,11 +200,11 @@ public class City implements Serializable {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public int getZequ() {
-		return zequ;
+	public int getSequ() {
+		return sequ;
 	}
-	public void setZequ(int zequ) {
-		this.zequ = zequ;
+	public void setZequ(int sequ) {
+		this.sequ = sequ;
 	}
 	public String getUpdate_user() {
 		return update_user;
