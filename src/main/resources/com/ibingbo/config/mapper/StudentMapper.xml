@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace是为了方便区别其他sql，可以适当的全命名 -->
+<mapper namespace="com.ibingbo.mapper.StudentMapper">
+
+    
+	<resultMap type="com.ibingbo.models.DO.StudentDO" id="BaseResultMap">
+		<constructor>
+			<idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+			<arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+		</constructor>
+	</resultMap>
+	
+	
+
+	<select id="getStudents" resultMap="BaseResultMap">
+		select * from student
+	</select>
+	
+	<insert id="insertStudent" useGeneratedKeys="true" parameterType="com.ibingbo.models.DO.StudentDO">
+	   insert into student 
+	   <trim prefix="(" suffix=")" suffixOverrides=",">
+	       <if test="id != null">
+	           id,
+	       </if>
+	       <if test="name != null">
+	           name,
+	       </if>
+	       <if test="password != null">
+	           password,
+	       </if>
+	       <if test="create_time != null">
+	           create_time,
+	       </if>
+	   </trim>
+	   <trim prefix="values (" suffix=")" suffixOverrides=",">
+	       <if test="id != null">
+	           #{id,jdbcType=INTEGER},
+	       </if>
+	       <if test="name != null">
+	           #{name, jdbcType=VARCHAR},
+	       </if>
+	       <if test="password != null">
+	           #{password, jdbcType=VARCHAR},
+	       </if>
+	       <if test="create_time != null">
+	           #{create_time, jdbcType=TIMESTAMP},
+	       </if>
+	   </trim>
+	</insert>
+	
+	<update id="updateStudent" parameterType="com.ibingbo.models.DO.StudentDO">
+	   update student
+	   <set>
+	       <if test="name != null">name=#{name},</if>
+	       <if test="password != null">password=#{password},</if>
+	       <if test="create_time != null">create_time=#{create_time}</if>
+	   </set>
+	   where id=#{id}
+	</update>
+	
+	<delete id="deleteStudent" parameterType="java.util.Map">
+	   delete from student
+	   <where>
+	       #{id,jdbcType=INTEGER}
+	   </where>
+	</delete>
+
+</mapper>

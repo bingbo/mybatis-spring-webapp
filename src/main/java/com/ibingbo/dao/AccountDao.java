@@ -7,4 +7,6 @@ import com.ibingbo.models.Account;
 public interface AccountDao {
 
 	public List<Account> getAccounts();
+	
+	public Account getAccountById(Integer id);
 }

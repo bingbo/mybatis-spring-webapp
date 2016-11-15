@@ -13,17 +13,13 @@ http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 
-	
 
 
-	
-	<!-- 数据源配置
-	<bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<value>classpath:jdbc.properties</value>
-		</property>
-	</bean> -->
+
+
+	<!-- 数据源配置 <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="locations"> <value>classpath:jdbc.properties</value> </property> 
+		</bean> -->
 
 	<bean id="dataSource1" destroy-method="close"
 		class="org.apache.commons.dbcp.BasicDataSource">
@@ -40,14 +36,24 @@ http://www.springframework.org/schema/mvc
 		<property name="mapperLocations" value="classpath:com/ibingbo/config/mapper/*.xml" />
 	</bean>
 	<!-- 配置mybatis的sql工厂类，并指定数据源与sql mappper配置 -->
-
-	<!-- 配置dao，该dao继承了SqlSessionDaoSupport，故直接指定sqlSessionFactory属性即可 -->
-	<bean id="cityDao" class="com.ibingbo.dao.impl.CityDaoImpl">
-		<property name="sqlSessionFactory" ref="sqlSessionFactory1"></property>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.ibingbo.mapper" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory1" />
 	</bean>
-	<bean id="accountDao" class="com.ibingbo.dao.impl.AccountDaoImpl">
-        <property name="sqlSessionFactory" ref="sqlSessionFactory1"></property>
-    </bean>
+	
+	<!-- SqlSessionTemplate 是 MyBatis-Spring 的核心。 这个类负责管理 MyBatis 的 SqlSession, 
+		调用 MyBatis 的 SQL 方法, 翻译异常 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory1" />
+	</bean>
+	<!-- 配置dao，该dao继承了SqlSessionDaoSupport，故直接指定sqlSessionFactory属性即可 -->
+	<!-- <bean id="cityDao" class="com.ibingbo.dao.impl.CityDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory1"></property>
+	</bean> -->
+	<!-- 通过注解注入sqlSession -->
+	<!-- <bean id="accountDao" class="com.ibingbo.dao.impl.AccountDaoImpl"> 
+		<property name="sqlSessionFactory" ref="sqlSessionFactory1"></property> </bean> -->
 	<!-- 配置dao，该dao继承了SqlSessionDaoSupport，故直接指定sqlSessionFactory属性即可 -->
 
 	<!-- 添加配置事务管理，并指定数据源 -->
@@ -57,5 +63,5 @@ http://www.springframework.org/schema/mvc
 	</bean>
 	<!-- 添加配置事务管理，并指定数据源 -->
 
-	
+
 </beans>

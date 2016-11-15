@@ -82,10 +82,17 @@ http://www.springframework.org/schema/mvc
 	<!-- 配置mybatis的sql工厂类，并指定数据源与sql mappper配置 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
+		<!-- mybatis的配置 -->
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
 		<property name="mapperLocations" value="classpath:com/ibingbo/config/mapper/*.xml" />
 	</bean>
 	<!-- 配置mybatis的sql工厂类，并指定数据源与sql mappper配置 -->
-
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.ibingbo.mapper" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+    
+	
 	<!-- 配置dao，该dao继承了SqlSessionDaoSupport，故直接指定sqlSessionFactory属性即可 -->
 	<bean id="userDao" class="com.ibingbo.dao.impl.UserDaoImpl">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
@@ -105,7 +112,7 @@ http://www.springframework.org/schema/mvc
 	<!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> <property 
 		name="basePackage" value="com.ibingbo.config.mapper" /> </bean> -->
 	<!-- <mybatis:scan base-package="com.ibingbo.dao" /> -->
-	
-	
-	<import resource="classpath:database-conf.xml"/>
+
+
+	<import resource="classpath:database-conf.xml" />
 </beans>

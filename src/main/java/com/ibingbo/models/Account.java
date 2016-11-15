@@ -5,16 +5,25 @@ import java.util.Date;
 
 public class Account implements Serializable {
 
-	private int id;
+	private Integer id;
 	private String name;
 	private Date login_time;
 	private Date create_time;
-	private int buc_userid;
-	private int empid;
-	public int getId() {
+	private Integer buc_userid;
+	private Integer empid;
+	public Account(Integer id, String name, Date login_time, Date create_time, Integer buc_userid, Integer empid) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.login_time = login_time;
+		this.create_time = create_time;
+		this.buc_userid = buc_userid;
+		this.empid = empid;
+	}
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -35,18 +44,20 @@ public class Account implements Serializable {
 	public void setCreate_time(Date create_time) {
 		this.create_time = create_time;
 	}
-	public int getBuc_userid() {
+	public Integer getBuc_userid() {
 		return buc_userid;
 	}
-	public void setBuc_userid(int buc_userid) {
+	public void setBuc_userid(Integer buc_userid) {
 		this.buc_userid = buc_userid;
 	}
-	public int getEmpid() {
+	public Integer getEmpid() {
 		return empid;
 	}
-	public void setEmpid(int empid) {
+	public void setEmpid(Integer empid) {
 		this.empid = empid;
 	}
+	
+	
 	
 	
 }

@@ -9,4 +9,6 @@ public interface UserDao {
 	public User getUser(String userId);
 	
 	public List<User> getUserList();
+	
+	
 }

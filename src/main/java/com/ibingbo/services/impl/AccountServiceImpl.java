@@ -21,4 +21,10 @@ public class AccountServiceImpl implements AccountService {
 		return this.accountDao.getAccounts();
 	}
 
+	@Override
+	public Account getAccountById(Integer id) {
+		// TODO Auto-generated method stub
+		return this.accountDao.getAccountById(id);
+	}
+
 }

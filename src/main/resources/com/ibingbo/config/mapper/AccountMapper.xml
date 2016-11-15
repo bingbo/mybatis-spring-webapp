@@ -3,8 +3,18 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace是为了方便区别其他sql，可以适当的全命名 -->
-<mapper namespace="com.ibingbo.mappers.account">
-    <!-- 结果映射 -->
+<mapper namespace="com.ibingbo.mapper.AccountMapper">
+	<resultMap type="com.ibingbo.models.Account" id="BaseResultMap">
+		<constructor>
+			<idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+			<arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="login_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+			<arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+			<arg column="buc_userid" jdbcType="BIGINT" javaType="java.lang.Integer" />
+			<arg column="empid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+		</constructor>
+	</resultMap>
+	<!-- 结果映射 -->
 	<resultMap id="accountMap" type="com.ibingbo.models.Account">
 		<id column="id" property="id" />
 		<result column="name" property="name" />
@@ -14,8 +24,8 @@
 		<result column="empid" property="empid" />
 	</resultMap>
 	<!-- 结果映射 -->
-	
-	<select id="getAccounts" resultMap="accountMap">
+
+	<select id="getAccounts" resultMap="BaseResultMap">
 		select * from user
 	</select>
 
