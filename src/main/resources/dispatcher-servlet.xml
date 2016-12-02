@@ -115,4 +115,5 @@ http://www.springframework.org/schema/mvc
 
 
 	<import resource="classpath:database-conf.xml" />
+	<import resource="classpath:spring-task-conf.xml"/>
 </beans>

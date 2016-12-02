@@ -93,6 +93,12 @@
 		</dependency>
 		<!-- freemarker模板引擎 -->
 
+		<!-- spring test单元测试架构-->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 		<!-- 对象转json依赖 -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.jaxrs</groupId>
@@ -110,11 +116,24 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- 日志框架 -->
 
+		<!-- org.springframework.scheduling.quartz.QuartzJobBean依赖的定时任务组件-->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.2.3</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.0-b01</version>
+		</dependency>
 		<!-- 添加mysql驱动 -->
 		<dependency>
 			<groupId>mysql</groupId>
