@@ -2,6 +2,8 @@ package com.ibingbo.models;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class Account implements Serializable {
 
@@ -20,6 +22,7 @@ public class Account implements Serializable {
 		this.buc_userid = buc_userid;
 		this.empid = empid;
 	}
+
 	public Integer getId() {
 		return id;
 	}

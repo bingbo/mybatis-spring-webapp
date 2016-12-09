@@ -1,5 +1,7 @@
 package com.ibingbo.task;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +15,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  */
 @Component("springTaskAnnotation")
 public class SpringTaskAnnotation {
+    private final static Logger logger = LoggerFactory.getLogger(SpringTaskAnnotation.class);
     private static Integer i;
     private static Boolean loaded = false;
     private static LinkedList list = new LinkedList();
@@ -20,6 +23,10 @@ public class SpringTaskAnnotation {
     private final static ReentrantReadWriteLock rw = new ReentrantReadWriteLock();
     private static LinkedList list2 = new LinkedList();
     private static Boolean loaded2 = false;
+
+    private final static ReentrantReadWriteLock rw3 = new ReentrantReadWriteLock();
+    private static LinkedList list3 = new LinkedList();
+    private static Boolean loaded3 = false;
 
     static {
         i = 3;
@@ -65,31 +72,58 @@ public class SpringTaskAnnotation {
     public void work3() {
         rw.writeLock().lock();
         try {
-            if(!loaded2){
-                for(int i=0;i<1000;i++){
-                    list2.add(1000
-
-
-                            + i);
+            if (!loaded2) {
+                for (int i = 0; i < 1000; i++) {
+                    list2.add(i);
                 }
-                loaded2=true;
+                loaded2 = true;
             }
-        }finally {
+        } finally {
             rw.writeLock().unlock();
         }
 
-        while (true){
+        while (true) {
             rw.writeLock().lock();
             try {
-                Object o=list2.poll();
-                if(o==null){
-                    loaded2=false;
+                Object o = list2.poll();
+                if (o == null) {
+                    loaded2 = false;
                     break;
                 }
                 System.out.println(Thread.currentThread().getId() + " - " + Thread.currentThread().getName() + "  work 2.. " + o.toString() + " size:" + list2.size());
 
-            }finally {
+            } finally {
                 rw.writeLock().unlock();
+            }
+        }
+    }
+
+    @Scheduled(cron = "0 0/3 * * * ?")
+    public void work4() {
+        rw3.writeLock().lock();
+        try {
+            if (!loaded3) {
+                for (int i = 0; i < 1000; i++) {
+                    list3.add(1000 + i);
+                }
+                loaded3 = true;
+            }
+        } finally {
+            rw3.writeLock().unlock();
+        }
+
+        while (true) {
+            rw3.writeLock().lock();
+            try {
+                Object o = list3.poll();
+                if (o == null) {
+                    loaded3 = false;
+                    break;
+                }
+                System.out.println(Thread.currentThread().getId() + " - " + Thread.currentThread().getName() + "  work 3.. " + o.toString() + " size:" + list3.size());
+
+            } finally {
+                rw3.writeLock().unlock();
             }
         }
     }

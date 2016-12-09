@@ -12,6 +12,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by zhangbingbing on 2016/11/30.
  */
@@ -30,4 +33,6 @@ public class UserServiceTest {
         Assert.assertNotNull(user);
         System.out.println(user.getName());
     }
+
+
 }

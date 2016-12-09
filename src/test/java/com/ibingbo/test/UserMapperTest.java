@@ -11,9 +11,10 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.nio.Buffer;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhangbingbing on 2016/11/11.
@@ -49,5 +50,54 @@ public class UserMapperTest {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void testSerialize(){
+        ObjectOutputStream objectOutputStream=null;
+        ObjectInputStream objectInputStream = null;
+        try {
+            OutputStream outputStream = new FileOutputStream("/Users/zhangbingbing/object.txt");
+            objectOutputStream = new ObjectOutputStream(outputStream);
+            User user=new User();
+            user.setId("1");
+            user.setName("冰");
+            user.setPassword("111");
+            user.setEmail("bing@126.com");
+            objectOutputStream.writeObject(user);
+
+            InputStream inputStream = new FileInputStream("/Users/zhangbingbing/object.txt");
+            objectInputStream = new ObjectInputStream(inputStream);
+            User iuser = (User) objectInputStream.readObject();
+            System.out.println(iuser.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (null != objectOutputStream) {
+                try {
+                    objectOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+    @Test
+    public void testList(){
+
+        List<Integer> list = new ArrayList<Integer>();
+        for(int i=0;i<10;i++){
+            list.add(i);
+        }
+        System.out.println(list.toString());
+        deleteItems(list);
+        System.out.println(list.toString());
+    }
+    private void deleteItems(List list){
+        list.remove(1);
+        list.remove(3);
+        list.remove(5);
     }
 }

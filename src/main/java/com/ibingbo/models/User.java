@@ -1,9 +1,13 @@
 package com.ibingbo.models;
 
-public class User {
+import org.springframework.beans.factory.annotation.Required;
+
+import java.io.Serializable;
+
+public class User implements Serializable{
 
 	private String id;
-	private String name;
+    private String name;
 	private String password;
 	private String email;
 	private int update_time;
@@ -37,6 +41,15 @@ public class User {
 	public void setUpdate_time(int update_time) {
 		this.update_time = update_time;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"id='" + id + '\'' +
+				", name='" + name + '\'' +
+				", password='" + password + '\'' +
+				", email='" + email + '\'' +
+				", update_time=" + update_time +
+				'}';
+	}
 }
