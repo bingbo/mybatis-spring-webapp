@@ -3,6 +3,10 @@ package com.ibingbo.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.ibingbo.enums.impl.CustomExceptionEnums;
+import com.ibingbo.exception.CustomException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +20,8 @@ import com.ibingbo.services.StudentService;
 @Controller
 @RequestMapping("/student")
 public class StudentController {
+
+	private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
 
 	@Autowired
 	private StudentService service;
@@ -88,10 +94,16 @@ public class StudentController {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("errno", 0);
 		map.put("errmsg", "success");
-		try{
-			Map<String, Object> params=new HashMap<String, Object>();
+		try {
+			if (id == 0) {
+				throw new CustomException(CustomExceptionEnums.NOTNULLOREMPTY);
+			}
+			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("id", id);
 			map.put("data", this.service.deleteStudent(params));
+		} catch (CustomException e) {
+			map.put("errno", e.getCode());
+			map.put("errmsg", e.getMessage());
 		}catch(Exception exception){
 			map.put("errno", -1);
 			map.put("errmsg", exception.getMessage());

@@ -1,5 +1,6 @@
 package com.ibingbo.test;
 
+import com.ibingbo.models.User;
 import org.junit.Test;
 
 import java.io.FileInputStream;
@@ -34,5 +35,27 @@ public class GenericTest {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void testChange(){
+        Map<String, Object> map = new HashMap<String, Object>();
+        User user=new User();
+        user.setName("bill");
+        map.put("1", user);
+        User user1=new User();
+        user1.setName("bing");
+        map.put("2", user1);
+
+        List<User> list = changeMap2List(map,User.class);
+        System.out.println(list);
+    }
+    public <T> List<T> changeMap2List(Map<String,Object> map,Class<T> tClass){
+        List<T> result = new ArrayList<T>();
+        for (Map.Entry entry : map.entrySet()) {
+            T o=(T)entry.getValue();
+            result.add(o);
+        }
+        return result;
     }
 }

@@ -89,9 +89,9 @@ http://www.springframework.org/schema/task http://www.springframework.org/schema
 	<!--</task:scheduled-tasks>-->
 
     <!--开启任务注解方式,指定任务调度池，及调用方式为代理-->
-	<task:annotation-driven scheduler="poolTaskScheduler" mode="proxy"/>
-	<!--任务线程池-->
-	<task:scheduler id="poolTaskScheduler" pool-size="10"/>
+	<!--<task:annotation-driven scheduler="poolTaskScheduler" mode="proxy"/>-->
+	<!--&lt;!&ndash;任务线程池&ndash;&gt;-->
+	<!--<task:scheduler id="poolTaskScheduler" pool-size="10"/>-->
 	<!--********************************spring task任务的配置方式*****************************-->
 
 </beans>

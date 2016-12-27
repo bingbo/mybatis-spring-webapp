@@ -21,7 +21,7 @@
 		select * from student
 	</select>
 	
-	<insert id="insertStudent" useGeneratedKeys="true" parameterType="com.ibingbo.models.DO.StudentDO">
+	<insert id="insertStudent" useGeneratedKeys="true" keyProperty="id" parameterType="com.ibingbo.models.DO.StudentDO">
 	   insert into student 
 	   <trim prefix="(" suffix=")" suffixOverrides=",">
 	       <if test="id != null">

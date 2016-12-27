@@ -1,20 +1,18 @@
 package com.ibingbo.test;
 
-import com.ibingbo.mapper.StudentMapper;
-import com.ibingbo.mapper.UserMapper;
-import com.ibingbo.models.DO.StudentDO;
 import com.ibingbo.models.User;
-import junit.framework.Assert;
+import com.ibingbo.proxy.ITest;
 import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
 import java.io.*;
-import java.nio.Buffer;
+import java.lang.reflect.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhangbingbing on 2016/11/11.
@@ -99,5 +97,54 @@ public class UserMapperTest {
         list.remove(1);
         list.remove(3);
         list.remove(5);
+    }
+
+    @Test
+    public void testSome(){
+        try {
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+//            LocalDate date = LocalDate.parse("", formatter);
+            Class p = Class.forName("com.ibingbo.models.User");
+            Map<String, Object> map = new HashMap<String, Object>();
+            User user=new User();
+            user.setName("bill");
+            user.setEmail("bill@126.com");
+            map.put("user", user);
+            Object object = map.get("user");
+            boolean b=p.isInstance(object);
+            if (b) {
+                System.out.println(p.cast(object));
+            }
+            Class<User> userClass=User.class;
+            Field nameField = userClass.getDeclaredField("name");
+            Field emailField = userClass.getDeclaredField("email");
+            emailField.setAccessible(true);
+            nameField.setAccessible(true);
+            System.out.println(nameField.get(user));
+            System.out.println(emailField.get(user));
+            Field id = userClass.getDeclaredField("id");
+            id.setAccessible(true);
+            id.set(user, "30");
+            Field pwd=userClass.getDeclaredField("password");
+            pwd.setAccessible(true);
+            pwd.set(user,"1111");
+            System.out.println(user);
+            ITest test=(ITest) Proxy.newProxyInstance(ITest.class.getClassLoader(), new Class[]{ITest.class}, new InvocationHandler() {
+                public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                    System.out.println(method);
+                    if (null != args) {
+                        for (Object arg : args) {
+                            System.out.println(arg);
+                        }
+                    }
+                    return null;
+                }
+            });
+            test.say();
+            test.sayHi("bill");
+            System.out.println(((Type)p));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
