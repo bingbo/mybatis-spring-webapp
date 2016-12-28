@@ -5,6 +5,8 @@ import com.ibingbo.proxy.ITest;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
@@ -19,6 +21,14 @@ import java.util.Map;
  */
 public class UserMapperTest {
 
+    @Before
+    public void runBefore(){
+        System.out.println("before");
+    }
+    @After
+    public void runAfter(){
+        System.out.println("after");
+    }
     @Test
     public void findUserById(){
 //        SqlSession sqlSession=getSessionFactory().openSession();

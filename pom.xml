@@ -169,7 +169,6 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
-
     </build>
 
 	<profiles>
