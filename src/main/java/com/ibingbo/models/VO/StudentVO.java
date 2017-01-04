@@ -32,7 +32,15 @@ public class StudentVO {
 	public Date getCreate_time() {
 		return create_time;
 	}
-	
-	
-	
+
+
+	@Override
+	public String toString() {
+		return "StudentVO{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", password='" + password + '\'' +
+				", create_time=" + create_time +
+				'}';
+	}
 }

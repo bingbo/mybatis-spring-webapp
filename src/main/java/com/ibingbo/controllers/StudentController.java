@@ -3,11 +3,13 @@ package com.ibingbo.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.ibingbo.annotation.Log;
 import com.ibingbo.enums.impl.CustomExceptionEnums;
 import com.ibingbo.exception.CustomException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import com.ibingbo.services.StudentService;
 
 @Controller
 @RequestMapping("/student")
+@Scope("prototype")
 public class StudentController {
 
 	private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
@@ -28,12 +31,14 @@ public class StudentController {
 	
 	@RequestMapping("/list")
 	@ResponseBody
+	@Log(remark = "list api")
 	public Map<String, Object> list(){
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("errno", 0);
 		map.put("errmsg", "success");
 		try{
 			map.put("data", this.service.getStudents());
+			System.out.println("student_controller: " + this);
 		}catch(Exception exception){
 			map.put("errno", -1);
 			map.put("errmsg", exception.getMessage());
@@ -43,6 +48,7 @@ public class StudentController {
 	
 	@RequestMapping("/get/{id}")
 	@ResponseBody
+	@Log
 	public Map<String, Object> get(@PathVariable("id") Integer id){
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("errno", 0);
@@ -90,6 +96,7 @@ public class StudentController {
 	
 	@RequestMapping("/delete/{id}")
 	@ResponseBody
+	@Log(remark = "delete user")
 	public Map<String, Object> delete(@PathVariable("id") Integer id){
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("errno", 0);

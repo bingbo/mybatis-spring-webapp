@@ -157,4 +157,15 @@ public class UserMapperTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void testInteger(){
+        Integer a=100;
+        System.out.println(a == 100);
+        System.out.println(a.equals(100));
+        Integer b = 140;
+        System.out.println(b == 140);
+        System.out.println(b.equals(140));
+
+    }
 }
