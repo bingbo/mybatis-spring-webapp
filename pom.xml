@@ -170,6 +170,13 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.12</version>
 		</dependency>
+
+		<!--xml digest-->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-digester3</artifactId>
+			<version>3.2</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<defaultGoal>install</defaultGoal>
