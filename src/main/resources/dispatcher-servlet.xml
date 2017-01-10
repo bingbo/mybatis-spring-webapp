@@ -108,8 +108,21 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 	</bean>
 	<!-- 添加配置事务管理，并指定数据源 -->
 
-	<!-- 启用具有注释的事务划分 -->
-	<tx:annotation-driven />
+	<!--通过aop使用事务在user service 上-->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" rollback-for="UserException" propagation="REQUIRED" isolation="READ_COMMITTED" timeout="-1"/>
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:pointcut id="userServiceOperation" expression="execution(* com.ibingbo.services.UserService.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="userServiceOperation"/>
+	</aop:config>
+	<!--通过aop使用事务在user service 上-->
+
+	<!-- 启用具有注释的事务划分 然后在类或方法里用@Transactional配置注释使用事务-->
+	<tx:annotation-driven transaction-manager="transactionManager" mode="proxy" proxy-target-class="true" />
 	<!-- 启用具有注释的事务划分 -->
 	<!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> <property 
 		name="basePackage" value="com.ibingbo.config.mapper" /> </bean> -->

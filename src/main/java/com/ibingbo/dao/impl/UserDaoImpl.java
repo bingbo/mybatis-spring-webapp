@@ -17,7 +17,7 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao {
 	
 	@Override
 	public List<User> getUserList(){
-		return (List)this.getSqlSession().selectList("com.ibingbo.mappers.userMapper.getUserList");
+		return (List)this.getSqlSession().selectList("com.ibingbo.mapper.UserMapper.getUserList");
 		
 	}
 

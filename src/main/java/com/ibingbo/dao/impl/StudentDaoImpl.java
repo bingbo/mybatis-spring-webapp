@@ -13,6 +13,8 @@ import com.ibingbo.mapper.AccountMapper;
 import com.ibingbo.mapper.StudentMapper;
 import com.ibingbo.models.Account;
 import com.ibingbo.models.DO.StudentDO;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class StudentDaoImpl implements StudentDao {
@@ -21,6 +23,7 @@ public class StudentDaoImpl implements StudentDao {
 	private StudentMapper studentMapper;
 	
 
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public List<StudentDO> getStudents() {
 		// TODO Auto-generated method stub

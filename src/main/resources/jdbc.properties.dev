@@ -4,7 +4,7 @@ jdbc.username=root
 jdbc.password=
 
 trace.driverClassName=com.mysql.jdbc.Driver
-trace.url=jdbc\:mysql\://10.218.138.6\:3306/insight?zeroDateTimeBehavior\=convertToNull&amp;autoReconnect=\true&amp;characterEncoding=\UTF-8&amp;characterSetResults=\UTF-8
+trace.url=jdbc\:mysql\://10.218.138.6\:3306/insight?zeroDateTimeBehavior\=convertToNull&amp;characterEncoding=\UTF-8&amp;characterSetResults=\UTF-8
 trace.username=root
 trace.password=root
 

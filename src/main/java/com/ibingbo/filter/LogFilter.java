@@ -1,5 +1,7 @@
 package com.ibingbo.filter;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,6 +10,7 @@ import java.io.IOException;
 /**
  * Created by bing on 2016/12/29.
  */
+@Transactional
 public class LogFilter implements Filter {
 
     private FilterConfig config;

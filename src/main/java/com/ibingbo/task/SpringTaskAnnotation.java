@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
- * Created by zhangbingbing on 2016/12/1.
  * spring task 注解方式
  * 需要在xml里开启注解<task:annotation-driven scheduler="qbScheduler" mode="proxy"/>
  */

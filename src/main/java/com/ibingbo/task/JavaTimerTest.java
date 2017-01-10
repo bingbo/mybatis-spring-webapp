@@ -1,7 +1,6 @@
 package com.ibingbo.task;
 
 /**
- * Created by zhangbingbing on 2016/12/1.
  * 创建一个thread，然后让它在while循环里一直运行着，通过sleep方法来达到定时任务的效果
  */
 public class JavaTimerTest {
