@@ -5,6 +5,7 @@ import com.whalin.MemCached.MemCachedClient;
 import com.whalin.MemCached.SockIOPool;
 import net.rubyeye.xmemcached.MemcachedClient;
 import net.rubyeye.xmemcached.MemcachedClientBuilder;
+import net.rubyeye.xmemcached.MemcachedClientCallable;
 import net.rubyeye.xmemcached.XMemcachedClientBuilder;
 import net.rubyeye.xmemcached.exception.MemcachedException;
 import net.rubyeye.xmemcached.utils.AddrUtil;
@@ -56,6 +57,25 @@ public class MemServiceImpl implements MemService{
     public String get(String key) throws InterruptedException, MemcachedException, TimeoutException {
 
         //return client.get(key).toString();
+        /*
+        //在全名空间下设置值
+        this.xmemcachedClient.withNamespace("namespace", new MemcachedClientCallable<Void>() {
+            @Override
+            public Void call(MemcachedClient memcachedClient) throws MemcachedException, InterruptedException, TimeoutException {
+                memcachedClient.set("aa", 0, "aa");
+                return null;
+            }
+        });
+        //获取全名空间下的值
+        this.xmemcachedClient.withNamespace("namespace", new MemcachedClientCallable<String>() {
+            @Override
+            public String call(MemcachedClient memcachedClient) throws MemcachedException, InterruptedException, TimeoutException {
+                return memcachedClient.get("aaa");
+            }
+        });
+        //使得命名空间失效
+        this.xmemcachedClient.invalidateNamespace("namespace");
+*       */
         return xmemcachedClient.get(key).toString();
     }
 
