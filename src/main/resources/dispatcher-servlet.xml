@@ -155,6 +155,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 
 
+	<import resource="classpath:spring-bean.xml"/>
 	<import resource="classpath:database-conf.xml" />
 	<import resource="classpath:spring-task-conf.xml"/>
 </beans>

@@ -24,7 +24,14 @@ public class MemController {
     @ResponseBody
     public Response get(@PathVariable("key") String key) {
         Response response = new Response();
-        response.setData(memService.get(key));
+        try {
+
+            response.setData(memService.get(key));
+        } catch (Exception e) {
+            response.setCode(500);
+            response.setMessage(e.getMessage());
+            LOGGER.error(e.getMessage(),e);
+        }
         return response;
     }
 
@@ -32,7 +39,14 @@ public class MemController {
     @ResponseBody
     public Response set(@PathVariable("key") String key, @PathVariable("value") String value) {
         Response response = new Response();
-        memService.set(key,value);
+        try {
+            memService.set(key, value);
+
+        } catch (Exception e) {
+            response.setCode(500);
+            response.setMessage(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
+        }
         return response;
     }
 }
