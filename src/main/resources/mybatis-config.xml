@@ -13,6 +13,7 @@
         <setting name="defaultStatementTimeout" value="25000"/>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
         <setting name="callSettersOnNulls" value="true"/>
+        <setting name="logImpl" value="LOG4J"/>
     </settings>
     <typeAliases>
         <typeAlias alias="User" type="com.ibingbo.models.User"/>

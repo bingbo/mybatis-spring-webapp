@@ -22,4 +22,8 @@ public class TestableProcessor {
         }
         System.out.println("run some methods"+(passed+failed)+" pass:"+passed+" fail: "+failed);
     }
+
+    public static void main(String[] args) throws ClassNotFoundException {
+        process("com.ibingbo.annotation.example.MyTestable");
+    }
 }

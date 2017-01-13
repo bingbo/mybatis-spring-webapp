@@ -2,6 +2,8 @@ package com.ibingbo.services.impl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,8 @@ import com.ibingbo.services.UserService;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
+
+
 	
 	@Autowired
 	private UserDao userDao;
