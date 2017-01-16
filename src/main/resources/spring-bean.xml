@@ -129,4 +129,40 @@
     <bean name="xmemcachedClient1" factory-bean="xMemcachedClientBuilder" factory-method="build"
           destroy-method="shutdown"/>
     <!--*********************************通过XmemcachedClientBuilder的工厂方法方式来创建MemcachedClient，即可与spring框架集成**********************************-->
+
+    <!--*********************redis config*************************-->
+    <bean name="jedisPool" class="redis.clients.jedis.ShardedJedisPool" destroy-method="close">
+        <constructor-arg name="poolConfig">
+            <bean class="redis.clients.jedis.JedisPoolConfig">
+                <property name="maxTotal" value="10"/>
+                <property name="maxWaitMillis" value="1000"/>
+                <property name="maxIdle" value="10"/>
+                <property name="blockWhenExhausted" value="true"/>
+                <property name="testOnBorrow" value="true"/>
+            </bean>
+        </constructor-arg>
+        <constructor-arg name="shards">
+            <list>
+                <bean class="redis.clients.jedis.JedisShardInfo">
+                    <constructor-arg name="host">
+                        <value>localhost</value>
+                    </constructor-arg>
+                    <constructor-arg name="port">
+                        <value>6379</value>
+                    </constructor-arg>
+                    <!--<property name="password" value=""/>-->
+                </bean>
+                <bean class="redis.clients.jedis.JedisShardInfo">
+                    <constructor-arg name="host">
+                        <value>localhost</value>
+                    </constructor-arg>
+                    <constructor-arg name="port">
+                        <value>6399</value>
+                    </constructor-arg>
+                    <!--<property name="password" value=""/>-->
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+    <!--*********************redis config*************************-->
 </beans>

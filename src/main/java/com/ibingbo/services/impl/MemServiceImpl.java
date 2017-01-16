@@ -24,14 +24,14 @@ import java.util.concurrent.TimeoutException;
 public class MemServiceImpl implements MemService{
     private static final Logger LOGGER = LoggerFactory.getLogger(MemServiceImpl.class);
 
-    private MemCachedClient client;
+    private static MemCachedClient client;
     @Autowired
     @Qualifier("xmemcachedClient1")
     private MemcachedClient xmemcachedClient;
 
-    public MemServiceImpl() {
+    static  {
         SockIOPool pool = SockIOPool.getInstance();
-        pool.setServers(new String[]{"127.0.0.1:11211"});
+        pool.setServers(new String[]{"127.0.0.1:11211","127.0.0.1:11212"});
         pool.setFailover(true);
         pool.setInitConn(10);
         pool.setMinConn(5);
@@ -41,8 +41,10 @@ public class MemServiceImpl implements MemService{
         pool.setSocketTO(3000);
         pool.setAliveCheck(true);
         pool.initialize();
+        pool.setHashingAlg(1);
         client = new MemCachedClient();
-
+        client.setDefaultEncoding("utf-8");
+        client.setPrimitiveAsString(true);
         //google xmemcached
 //        MemcachedClientBuilder builder = new XMemcachedClientBuilder(AddrUtil.getAddressMap("localhost:11211"));
 //        try {
