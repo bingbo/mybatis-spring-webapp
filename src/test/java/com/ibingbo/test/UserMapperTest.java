@@ -166,6 +166,7 @@ public class UserMapperTest {
         Integer b = 140;
         System.out.println(b == 140);
         System.out.println(b.equals(140));
+        long var = 10l;
 
     }
 }

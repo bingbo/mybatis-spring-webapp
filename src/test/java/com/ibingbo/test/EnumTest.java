@@ -24,5 +24,11 @@ public class EnumTest {
                 break;
             default:
         }
+
+        for (Gender gender : Gender.values()) {
+            System.out.println(gender.ordinal());
+            System.out.println(gender.getName());
+            System.out.println(gender.name());
+        }
     }
 }

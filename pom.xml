@@ -229,6 +229,19 @@
 			<version>r09-jarjar</version>
 		</dependency>
 
+		<!--rabbitmq-->
+		<dependency>
+			<groupId>com.rabbitmq</groupId>
+			<artifactId>amqp-client</artifactId>
+			<version>4.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-rabbit</artifactId>
+			<version>1.6.6.RELEASE</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<defaultGoal>install</defaultGoal>
