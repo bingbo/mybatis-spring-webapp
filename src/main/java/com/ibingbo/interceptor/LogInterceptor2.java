@@ -14,6 +14,8 @@ public class LogInterceptor2 extends HandlerInterceptorAdapter{
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("LogInterceptor2 pre handle ...."+request.getRequestURI()+request.getQueryString());
         //return super.preHandle(request, response, handler);
+        //response.sendError(1000,"can not access");
+        //return false;
         return true;
     }
 

@@ -11,9 +11,18 @@ public class SimpleRabbitMQ {
     private final static String QUEUE_NAME = "hello";
 
     public static void main(String[] args) throws Exception{
+        //声明一个连接工厂
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
+        factory.setUsername("username");
+        factory.setPassword("password");
+        factory.setVirtualHost("virtualHost");
+        factory.setPort(5673);
+        //打开自动恢复机制，如果连接失败时
+        factory.setAutomaticRecoveryEnabled(true);
+        //获取连接
         Connection connection = factory.newConnection();
+        //Connection connection1 = factory.newConnection(new Address[]{new Address("192.168.1.4"), new Address("192.168.1.5")});
         Channel channel = connection.createChannel();
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);
         String message = "Hello World";

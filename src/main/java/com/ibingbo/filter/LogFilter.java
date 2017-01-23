@@ -24,6 +24,11 @@ public class LogFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
+        if (request.getRequestURI().equals("/user/get")) {
+            //this.config.getInitParameter("uri");
+            response.sendError(403,"Forbidden");
+            return;
+        }
         System.out.println(request.getRequestURI()+request.getQueryString());
         long begin = System.currentTimeMillis();
         filterChain.doFilter(servletRequest, servletResponse);

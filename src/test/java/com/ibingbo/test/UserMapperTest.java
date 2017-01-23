@@ -169,4 +169,8 @@ public class UserMapperTest {
         long var = 10l;
 
     }
+
+    @Test
+    public void testSome1() {
+    }
 }
