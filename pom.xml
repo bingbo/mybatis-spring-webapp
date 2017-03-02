@@ -242,6 +242,44 @@
 			<version>1.6.6.RELEASE</version>
 		</dependency>
 
+		<!--ali hsf bpms-->
+		<dependency>
+			<groupId>com.alibaba.work.alipmc</groupId>
+			<artifactId>alipmc-api</artifactId>
+			<version>1.5.8</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>org.slf4j.slf4j-api</artifactId>
+					<groupId>com.alibaba.external</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>org.slf4j.slf4j-log4j12</artifactId>
+					<groupId>com.alibaba.external</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>org.slf4j.jcl104-over-slf4j</artifactId>
+					<groupId>com.alibaba.external</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>sourceforge.spring.modules.beans</artifactId>
+					<groupId>com.alibaba.external</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>sourceforge.spring</artifactId>
+					<groupId>com.alibaba.external</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>fastjson</artifactId>
+					<groupId>com.alibaba.platform.shared</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.taobao.hsf</groupId>
+			<artifactId>hsf.app.spring</artifactId>
+			<version>2.1.1.7</version>
+		</dependency>
+		<!--ali hsf bpms-->
 	</dependencies>
 	<build>
 		<defaultGoal>install</defaultGoal>

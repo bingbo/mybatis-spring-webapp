@@ -13,7 +13,8 @@
             <value>11212</value>
         </constructor-arg>
     </bean>
-    <bean name="xmemcachedClient" class="net.rubyeye.xmemcached.utils.XMemcachedClientFactoryBean" destroy-method="shutdown">
+    <bean name="xmemcachedClient" class="net.rubyeye.xmemcached.utils.XMemcachedClientFactoryBean"
+          destroy-method="shutdown">
         <!--memcached节点列表，形如“主节点1:port,备份节点1:port 主节点2:port,备份节点2:port“的字符串，可以不设置备份节点，主备节点逗号隔开，不同分组空格隔开。-->
         <property name="servers">
             <value>127.0.0.1:11211 127.0.0.1:11212</value>
@@ -165,4 +166,14 @@
         </constructor-arg>
     </bean>
     <!--*********************redis config*************************-->
+
+
+    <bean id="processInstanceService" class="com.taobao.hsf.app.spring.util.HSFSpringConsumerBean">
+        <property name="interfaceName">
+            <value>com.alibaba.alipmc.api.ProcessInstanceService</value>
+        </property>
+        <property name="version">
+            <value>1.1.5.daily_aone_test</value>
+        </property>
+    </bean>
 </beans>
