@@ -1,6 +1,5 @@
 package com.ibingbo.test;
 
-import org.jruby.RubyProcess;
 import org.junit.Test;
 
 import java.io.*;
