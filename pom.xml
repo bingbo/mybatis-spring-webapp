@@ -3,10 +3,77 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.ibingbo</groupId>
     <artifactId>webapp</artifactId>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>webapp</name>
-    <url>http://maven.apache.org</url>
+
+    <!--这里要根据依赖顺序，会根据这里的顺序野德编译-->
+    <modules>
+        <module>webapp-util</module>
+        <module>webapp-rabbitmq</module>
+        <module>webapp-zookeeper</module>
+        <module>webapp-web</module>
+    </modules>
+
+
+    <!--环境变量配置-->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <app-env>dev</app-env>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <app-env>test</app-env>
+            </properties>
+        </profile>
+        <profile>
+            <id>publish</id>
+            <properties>
+                <app-env>publish</app-env>
+            </properties>
+        </profile>
+    </profiles>
+
+    <reporting>
+        <plugins>
+            <!--生成javadocs文档-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.7</version>
+            </plugin>
+            <!--生成web页面形式的java源代码文档-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <aggregate>true</aggregate>
+                </configuration>
+            </plugin>
+            <!--生成代码规范报告-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.5</version>
+            </plugin>
+            <!--代码分析工具，包括bug,无用代码，可优化代码，重复代码及过于复杂的表达式-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <aggregate>true</aggregate>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 
     <properties>
         <spring.version>4.3.3.RELEASE</spring.version>
@@ -176,218 +243,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.12</version>
         </dependency>
-
-        <!--xml digest-->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-digester3</artifactId>
-            <version>3.2</version>
-        </dependency>
-
-        <!--memecached client-->
-        <dependency>
-            <groupId>com.whalin</groupId>
-            <artifactId>Memcached-Java-Client</artifactId>
-            <version>3.0.2</version>
-        </dependency>
-        <!--google xmemcached-->
-        <dependency>
-            <groupId>com.googlecode.xmemcached</groupId>
-            <artifactId>xmemcached</artifactId>
-            <version>2.0.1</version>
-        </dependency>
-        <!--memecached client-->
-
-        <!--redis client-->
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>2.9.0</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-
-        <!--hbase相关依赖-->
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-core</artifactId>
-            <version>1.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.hbase</groupId>
-            <artifactId>hbase</artifactId>
-            <version>0.94.26</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.zookeeper</groupId>
-            <artifactId>zookeeper</artifactId>
-            <version>3.4.9</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.hadoop.thirdparty.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>r09-jarjar</version>
-        </dependency>
-
-        <!--rabbitmq-->
-        <dependency>
-            <groupId>com.rabbitmq</groupId>
-            <artifactId>amqp-client</artifactId>
-            <version>4.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.amqp</groupId>
-            <artifactId>spring-rabbit</artifactId>
-            <version>1.6.6.RELEASE</version>
-        </dependency>
-
-
-        <!--zookeeper-->
-        <dependency>
-            <groupId>org.apache.zookeeper</groupId>
-            <artifactId>zookeeper</artifactId>
-            <version>3.4.9</version>
-        </dependency>
-
-        <!--apache httpclient-->
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpmime</artifactId>
-            <version>4.5.3</version>
-        </dependency>
-
-        <!--ali hsf bpms-->
-        <dependency>
-            <groupId>com.alibaba.work.alipmc</groupId>
-            <artifactId>alipmc-api</artifactId>
-            <version>1.5.8</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>org.slf4j.slf4j-api</artifactId>
-                    <groupId>com.alibaba.external</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>org.slf4j.slf4j-log4j12</artifactId>
-                    <groupId>com.alibaba.external</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>org.slf4j.jcl104-over-slf4j</artifactId>
-                    <groupId>com.alibaba.external</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>sourceforge.spring.modules.beans</artifactId>
-                    <groupId>com.alibaba.external</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>sourceforge.spring</artifactId>
-                    <groupId>com.alibaba.external</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>fastjson</artifactId>
-                    <groupId>com.alibaba.platform.shared</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.taobao.hsf</groupId>
-            <artifactId>hsf.app.spring</artifactId>
-            <version>2.1.1.7</version>
-        </dependency>
-        <!--ali hsf bpms-->
     </dependencies>
-    <build>
-        <defaultGoal>install</defaultGoal>
-        <directory>/Users/zhangbingbing/Work/tomcat-8.0.38/webapps/</directory>
-        <finalName>webapp</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-        </plugins>
-        <!--过滤配置变量-->
-        <filters>
-            <!--指定使用哪个文件的内容过滤-->
-            <filter>
-                ${basedir}/src/main/resources/jdbc.properties.${app-env}
-            </filter>
-        </filters>
-        <resources>
-            <resource>
-                <!--指定过滤哪个目录下的文件，进行变量替换-->
-                <directory>${project.basedir}/src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-    </build>
 
-    <!--环境变量配置-->
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <app-env>dev</app-env>
-            </properties>
-        </profile>
-        <profile>
-            <id>test</id>
-            <properties>
-                <app-env>test</app-env>
-            </properties>
-        </profile>
-        <profile>
-            <id>publish</id>
-            <properties>
-                <app-env>publish</app-env>
-            </properties>
-        </profile>
-    </profiles>
-
-    <reporting>
-        <plugins>
-            <!--生成javadocs文档-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.7</version>
-            </plugin>
-            <!--生成web页面形式的java源代码文档-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <aggregate>true</aggregate>
-                </configuration>
-            </plugin>
-            <!--生成代码规范报告-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.5</version>
-            </plugin>
-            <!--代码分析工具，包括bug,无用代码，可优化代码，重复代码及过于复杂的表达式-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>2.5</version>
-                <configuration>
-                    <aggregate>true</aggregate>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
 </project>

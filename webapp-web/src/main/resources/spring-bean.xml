@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--*********************************通过XMemcachedClientFactoryBean类，即可与spring框架集成**********************************-->
+    <!--需要权限认证的memcached服务器-->
+    <bean name="server1" class="java.net.InetSocketAddress">
+        <constructor-arg>
+            <value>127.0.0.1</value>
+        </constructor-arg>
+        <constructor-arg>
+            <value>11212</value>
+        </constructor-arg>
+    </bean>
+    <bean name="xmemcachedClient" class="net.rubyeye.xmemcached.utils.XMemcachedClientFactoryBean"
+          destroy-method="shutdown">
+        <!--memcached节点列表，形如“主节点1:port,备份节点1:port 主节点2:port,备份节点2:port“的字符串，可以不设置备份节点，主备节点逗号隔开，不同分组空格隔开。-->
+        <property name="servers">
+            <value>127.0.0.1:11211 127.0.0.1:11212</value>
+        </property>
+        <!--与servers对应的节点的权重-->
+        <property name="weights">
+            <list>
+                <value>1</value>
+                <value>2</value>
+            </list>
+        </property>
+        <!--授权验证信息，仅在xmemcached 1.2.5及以上版本有效-->
+        <property name="authInfoMap">
+            <map>
+                <entry key-ref="server1">
+                    <bean class="net.rubyeye.xmemcached.auth.AuthInfo" factory-method="typical">
+                        <constructor-arg index="0">
+                            <value>user</value>
+                        </constructor-arg>
+                        <constructor-arg index="1">
+                            <value>password</value>
+                        </constructor-arg>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+        <!--nio连接池大小，默认为1-->
+        <property name="connectionPoolSize" value="2"/>
+        <!--协议工厂，net.rubyeye.xmemcached.command.BinaryCommandFactory,TextCommandFactory(默认),KestrelCommandFactory-->
+        <property name="commandFactory">
+            <bean class="net.rubyeye.xmemcached.command.BinaryCommandFactory"/>
+        </property>
+        <!--分布策略，一致性哈希net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator或者ArraySessionLocator(默认)-->
+        <property name="sessionLocator">
+            <bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator"/>
+        </property>
+        <!--序列化转换器，默认使用net.rubyeye.xmemcached.transcoders.SerializingTranscoder-->
+        <property name="transcoder">
+            <bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder"/>
+        </property>
+        <!--IoBuffer分配器，默认为net.rubyeye.xmemcached.buffer.SimpleBufferAllocator，可选CachedBufferAllocator(不推荐)-->
+        <property name="bufferAllocator">
+            <bean class="net.rubyeye.xmemcached.buffer.SimpleBufferAllocator"/>
+        </property>
+        <!--是否启用failure模式，true为启用，默认不启用,所谓failure模式是指，当一个memcached节点down掉的时候，发往这个节点的请求将直接失败，而不是发送给下一个有效的memcached节点-->
+        <property name="failureMode" value="false"/>
+    </bean>
+    <!--*********************************通过XMemcachedClientFactoryBean类，即可与spring框架集成**********************************-->
+
+
+    <!--*********************************通过XmemcachedClientBuilder的工厂方法方式来创建MemcachedClient，即可与spring框架集成**********************************-->
+    <!--定义工厂bean-->
+    <bean name="xMemcachedClientBuilder" class="net.rubyeye.xmemcached.XMemcachedClientBuilder">
+        <!--服务器列表-->
+        <constructor-arg>
+            <list>
+                <bean class="java.net.InetSocketAddress">
+                    <constructor-arg>
+                        <value>127.0.0.1</value>
+                    </constructor-arg>
+                    <constructor-arg>
+                        <value>11211</value>
+                    </constructor-arg>
+                </bean>
+                <bean class="java.net.InetSocketAddress">
+                    <constructor-arg>
+                        <value>127.0.0.1</value>
+                    </constructor-arg>
+                    <constructor-arg>
+                        <value>11212</value>
+                    </constructor-arg>
+                </bean>
+            </list>
+        </constructor-arg>
+        <!--对应服务器列表的权重列表-->
+        <constructor-arg>
+            <list>
+                <value>1</value>
+                <value>2</value>
+            </list>
+        </constructor-arg>
+        <!--授权验证信息，仅在xmemcached 1.2.5及以上版本有效-->
+        <property name="authInfoMap">
+            <map>
+                <entry key-ref="server1">
+                    <bean class="net.rubyeye.xmemcached.auth.AuthInfo" factory-method="typical">
+                        <constructor-arg index="0">
+                            <value>user</value>
+                        </constructor-arg>
+                        <constructor-arg index="1">
+                            <value>password</value>
+                        </constructor-arg>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+        <!--nio连接池大小，默认为1-->
+        <property name="connectionPoolSize" value="2"/>
+        <!--协议工厂，net.rubyeye.xmemcached.command.BinaryCommandFactory,TextCommandFactory(默认),KestrelCommandFactory-->
+        <property name="commandFactory">
+            <bean class="net.rubyeye.xmemcached.command.TextCommandFactory"/>
+        </property>
+        <!--分布策略，一致性哈希net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator或者ArraySessionLocator(默认)-->
+        <property name="sessionLocator">
+            <bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator"/>
+        </property>
+        <!--序列化转换器，默认使用net.rubyeye.xmemcached.transcoders.SerializingTranscoder-->
+        <property name="transcoder">
+            <bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder"/>
+        </property>
+    </bean>
+    <!--通过工厂bean创建连接客户端-->
+    <bean name="xmemcachedClient1" factory-bean="xMemcachedClientBuilder" factory-method="build"
+          destroy-method="shutdown"/>
+    <!--*********************************通过XmemcachedClientBuilder的工厂方法方式来创建MemcachedClient，即可与spring框架集成**********************************-->
+
+    <!--*********************redis config*************************-->
+    <bean name="jedisPool" class="redis.clients.jedis.ShardedJedisPool" destroy-method="close">
+        <constructor-arg name="poolConfig">
+            <bean class="redis.clients.jedis.JedisPoolConfig">
+                <property name="maxTotal" value="10"/>
+                <property name="maxWaitMillis" value="1000"/>
+                <property name="maxIdle" value="10"/>
+                <property name="blockWhenExhausted" value="true"/>
+                <property name="testOnBorrow" value="true"/>
+            </bean>
+        </constructor-arg>
+        <constructor-arg name="shards">
+            <list>
+                <bean class="redis.clients.jedis.JedisShardInfo">
+                    <constructor-arg name="host">
+                        <value>localhost</value>
+                    </constructor-arg>
+                    <constructor-arg name="port">
+                        <value>6379</value>
+                    </constructor-arg>
+                    <!--<property name="password" value=""/>-->
+                </bean>
+                <bean class="redis.clients.jedis.JedisShardInfo">
+                    <constructor-arg name="host">
+                        <value>localhost</value>
+                    </constructor-arg>
+                    <constructor-arg name="port">
+                        <value>6399</value>
+                    </constructor-arg>
+                    <!--<property name="password" value=""/>-->
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+    <!--*********************redis config*************************-->
+
+
+    <!--<bean id="processInstanceService" class="com.taobao.hsf.app.spring.util.HSFSpringConsumerBean">-->
+        <!--<property name="interfaceName">-->
+            <!--<value>com.alibaba.alipmc.api.ProcessInstanceService</value>-->
+        <!--</property>-->
+        <!--<property name="version">-->
+            <!--<value>1.1.5.daily_aone_test</value>-->
+        <!--</property>-->
+    <!--</bean>-->
+</beans>

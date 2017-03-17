@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- 在哪里扫描使用注解的类注册为bean -->
+	<context:component-scan base-package="com.ibingbo"></context:component-scan>
+	<!-- 使用注解功能 -->
+	<mvc:annotation-driven>
+		<!-- 对象转换json的转换器 -->
+		<!-- <mvc:message-converters> <bean class="org.springframework.http.converter.StringHttpMessageConverter" 
+			/> <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" 
+			/> </mvc:message-converters> -->
+		<!-- 对象转换json的转换器 -->
+	</mvc:annotation-driven>
+
+
+	<!-- 手动注册controller,service等bean -->
+	<bean id="employeeService" class="com.ibingbo.services.EmployeeService" />
+	<bean name="/employee" class="com.ibingbo.controllers.EmployeeController">
+		<property name="employeeService" ref="employeeService"></property>
+	</bean>
+	<!-- 手动注册controller,service等bean -->
+
+	<!-- jsp作为模板引擎时的配置 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/views/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+	<!-- jsp作为模板引擎时的配置 -->
+
+	<!-- <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer"> 
+		<property name="resourceLoaderPath" value="/WEB-INF/velocity/"/> </bean> 
+		<bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver"> 
+		<property name="cache" value="true"/> <property name="prefix" value=""/> 
+		<property name="suffix" value=".vm"/> </bean> -->
+	<!-- freemarker作为模板引擎时的配置 -->
+	<bean id="freemarkerConfig"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/freemarker/" />
+	</bean>
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="cache" value="true" />
+		<property name="prefix" value="" />
+		<property name="suffix" value=".ftl" />
+	</bean>
+	<!-- freemarker作为模板引擎时的配置 -->
+
+	<!-- 数据源配置 -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<value>classpath:jdbc.properties</value>
+		</property>
+	</bean>
+
+	<bean id="dataSource" destroy-method="close"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	<!-- 数据源配置 -->
+
+	<!-- 配置mybatis的sql工厂类，并指定数据源与sql mappper配置 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- mybatis的配置 -->
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+		<property name="mapperLocations" value="classpath:com/ibingbo/config/mapper/*.xml" />
+	</bean>
+	<!-- 配置mybatis的sql工厂类，并指定数据源与sql mappper配置 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.ibingbo.mapper" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+    
+	
+	<!-- 配置dao，该dao继承了SqlSessionDaoSupport，故直接指定sqlSessionFactory属性即可 -->
+	<bean id="userDao" class="com.ibingbo.dao.impl.UserDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	<!-- 配置dao，该dao继承了SqlSessionDaoSupport，故直接指定sqlSessionFactory属性即可 -->
+
+	<!-- 添加配置事务管理，并指定数据源 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- 添加配置事务管理，并指定数据源 -->
+
+	<!--通过aop使用事务在user service 上-->
+	<!--<tx:advice id="txAdvice" transaction-manager="transactionManager">-->
+		<!--<tx:attributes>-->
+			<!--<tx:method name="get*" read-only="true" rollback-for="UserException" propagation="REQUIRED" isolation="READ_COMMITTED" timeout="-1"/>-->
+			<!--<tx:method name="*"/>-->
+		<!--</tx:attributes>-->
+	<!--</tx:advice>-->
+	<!--<aop:config>-->
+		<!--<aop:pointcut id="userServiceOperation" expression="execution(* com.ibingbo.services.UserService.*(..))"/>-->
+		<!--<aop:advisor advice-ref="txAdvice" pointcut-ref="userServiceOperation"/>-->
+	<!--</aop:config>-->
+	<!--通过aop使用事务在user service 上-->
+
+	<!-- 启用具有注释的事务划分 然后在类或方法里用@Transactional配置注释使用事务-->
+	<tx:annotation-driven transaction-manager="transactionManager" mode="proxy" proxy-target-class="true" />
+	<!-- 启用具有注释的事务划分 -->
+	<!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> <property 
+		name="basePackage" value="com.ibingbo.config.mapper" /> </bean> -->
+	<!-- <mybatis:scan base-package="com.ibingbo.dao" /> -->
+
+	<!--拦截器应用-->
+	<bean id="logInterceptor" class="com.ibingbo.interceptor.LogInterceptor"/>
+	<bean id="logInterceptor2" class="com.ibingbo.interceptor.LogInterceptor2"/>
+	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="logInterceptor"/>
+				<ref bean="logInterceptor2"/>
+			</list>
+		</property>
+	</bean>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.ibingbo.interceptor.LogInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.ibingbo.interceptor.LogInterceptor2"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+
+	<!--切面应用-->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+
+
+	<import resource="classpath:spring-bean.xml"/>
+	<import resource="classpath:database-conf.xml" />
+	<import resource="classpath:spring-task-conf.xml"/>
+	<import resource="classpath:spring-rabbitmq-conf.xml"/>
+</beans>
