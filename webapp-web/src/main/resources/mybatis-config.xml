@@ -20,4 +20,11 @@
         <typeAlias type="com.ibingbo.models.Account" alias="Account"/>
         <typeAlias type="com.ibingbo.models.City" alias="City"/>
     </typeAliases>
+
+    <typeHandlers>
+        <!--添加针对jdk1.8新日期时间类型，LocalDate,LocalDateTIme等的类型处理器-->
+        <typeHandler handler="org.apache.ibatis.type.LocalTimeTypeHandler"/>
+        <typeHandler handler="org.apache.ibatis.type.LocalDateTypeHandler"/>
+        <typeHandler handler="org.apache.ibatis.type.LocalDateTimeTypeHandler"/>
+    </typeHandlers>
 </configuration>

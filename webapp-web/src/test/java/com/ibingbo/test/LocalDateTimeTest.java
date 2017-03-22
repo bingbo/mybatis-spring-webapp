@@ -29,6 +29,8 @@ public class LocalDateTimeTest {
         //当前日期时间
         LocalDateTime date=LocalDateTime.now();
 
+
+        System.out.println("--------"+LocalTime.MIDNIGHT.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
         //格式化日期或时间为字符串
         String d = date.format(formatter);
         System.out.println("格式化时间：" + d);

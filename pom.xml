@@ -169,6 +169,12 @@
             <artifactId>mybatis</artifactId>
             <version>3.4.1</version>
         </dependency>
+        <!--mybatis LocalDateTime,LocalDate,LocalTime等typehandler-->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-typehandlers-jsr310</artifactId>
+            <version>1.0.2</version>
+        </dependency>
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
