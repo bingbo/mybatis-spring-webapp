@@ -30,7 +30,7 @@ public class LocalDateTimeTest {
         LocalDateTime date=LocalDateTime.now();
 
 
-        System.out.println("--------"+LocalTime.MIDNIGHT.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+        System.out.println("--------"+date.format(formatter1));
         //格式化日期或时间为字符串
         String d = date.format(formatter);
         System.out.println("格式化时间：" + d);
