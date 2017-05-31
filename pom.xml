@@ -10,6 +10,7 @@
     <modules>
         <module>webapp-util</module>
         <module>webapp-rabbitmq</module>
+        <module>webapp-kafka</module>
         <module>webapp-zookeeper</module>
         <module>webapp-boot</module>
         <module>webapp-web</module>
