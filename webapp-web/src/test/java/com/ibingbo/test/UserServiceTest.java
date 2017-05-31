@@ -1,11 +1,7 @@
 package com.ibingbo.test;
 
-import com.alibaba.alipmc.api.ProcessInstanceService;
-import com.alibaba.alipmc.api.model.bpm.ProcessInstance;
-import com.alibaba.fastjson.JSON;
 import com.ibingbo.models.User;
 import com.ibingbo.services.UserService;
-import org.jruby.RubyProcess;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,8 +24,8 @@ public class UserServiceTest {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private ProcessInstanceService processInstanceService;
+//    @Autowired
+//    private ProcessInstanceService processInstanceService;
 
 
     @Test
@@ -45,8 +41,8 @@ public class UserServiceTest {
         initData.put("runCycle", "20天");
         initData.put("updateFrequency", "1天");
         initData.put("expiryDate", "20天");
-        ProcessInstance instance = this.processInstanceService.startProcessInstance("insight-test-process","aaaaaaa","055690", initData,"1$insight-service-app-key$hello1234");
-        System.out.println(instance.toString());
+//        ProcessInstance instance = this.processInstanceService.startProcessInstance("insight-test-process","aaaaaaa","055690", initData,"1$insight-service-app-key$hello1234");
+//        System.out.println(instance.toString());
     }
     @Test
     public void testGetUserById() {
