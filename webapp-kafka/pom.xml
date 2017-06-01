@@ -12,14 +12,15 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
     <artifactId>webapp-kafka</artifactId>
 
     <dependencies>
+
         <dependency>
             <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka_2.12</artifactId>
+            <artifactId>kafka-clients</artifactId>
             <version>0.10.2.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka-clients</artifactId>
+            <artifactId>kafka-streams</artifactId>
             <version>0.10.2.1</version>
         </dependency>
     </dependencies>
