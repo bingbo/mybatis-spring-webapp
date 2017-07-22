@@ -1,15 +1,15 @@
 package com.ibingbo.mapper;
 
-import com.ibingbo.models.User;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
-
 import java.util.List;
-import java.util.Map;
+
+import com.ibingbo.models.User;
+import com.ibingbo.support.multi.datasource2.DataSource;
 
 public interface UserMapper {
 
+    @DataSource("slave")
+    User getUser(Integer id);
 
-    public User getUser(Integer id);
-
+    @DataSource("slave")
+    List<User> getUserList();
 }

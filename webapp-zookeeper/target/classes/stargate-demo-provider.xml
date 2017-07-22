@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:context="http://www.springframework.org/schema/context"
+ xmlns:tx="http://www.springframework.org/schema/tx"
+ xmlns:stargate="http://fengchao.baidu.com/dtd/schema/stargate"
+ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+    http://fengchao.baidu.com/dtd/schema/stargate http://fengchao.baidu.com/dtd/schema/stargate/stargate.xsd">
+
+	<!-- ********************************* -->
+	<!-- **         Spring原有配置			** -->
+	<!-- ********************************* -->
+	<bean id="demoService"
+		class="com.baidu.fengchao.stargate.service.impl.DemoServiceImpl" />
+	
+	<!-- ********************************* -->
+	<!-- **		 	Stargate配置 			** -->
+	<!-- ********************************* -->
+	<stargate:service ref="demoService"
+		interface="com.baidu.fengchao.stargate.service.DemoService"
+	version="1.0.0"
+	 group="test_dev">
+		<stargate:binding.star executes="50"/>
+	</stargate:service>
+	
+	
+	<!-- 注册中心 -->
+	<stargate:registry address="zookeeper://127.0.0.1:2181" path="/stargate/test" backup="127.0.0.1:2181"/>
+
+	<stargate:monitor available="true"/>
+	
+	<stargate:serviceGlobal  port="20002"/>
+</beans>

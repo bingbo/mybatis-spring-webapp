@@ -22,8 +22,8 @@ http://www.springframework.org/schema/mvc
 		</bean> -->
 
 	<bean id="dataSource1" destroy-method="close"
-		class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="${trace.driverClassName}" />
+    class="org.apache.commons.dbcp.BasicDataSource">
+    <property name="driverClassName" value="${trace.driverClassName}" />
 		<property name="url" value="${trace.url}" />
 		<property name="username" value="${trace.username}" />
 		<property name="password" value="${trace.password}" />

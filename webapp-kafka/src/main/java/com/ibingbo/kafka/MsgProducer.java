@@ -12,7 +12,8 @@ import java.util.Properties;
 public class MsgProducer {
     public static void main(String[] args) {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "127.0.0.1:9092");
+        //props.put("bootstrap.servers", "127.0.0.1:9092");
+        props.put("bootstrap.servers", "10.94.239.21:8092");
         props.put("acks", "all");
         props.put("retries", 0);
         props.put("batch.size", 16384);

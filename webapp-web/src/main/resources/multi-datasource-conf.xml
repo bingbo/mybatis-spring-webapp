@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <bean id="dataSourceMaster" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <bean id="dataSourceSlave1" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+
+    <bean id="dataSourceSlave2" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <bean id="dataSourceSlave3" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!--总的数据源，可以实现读写分离，负载均衡 -->
+    <bean id="dataSource" class="com.ibingbo.support.multi.datasource.DynamicDataSource">
+        <property name="master" ref="dataSourceMaster"/>
+        <property name="slaves">
+            <list>
+                <ref bean="dataSourceSlave1"/>
+                <ref bean="dataSourceSlave2"/>
+                <ref bean="dataSourceSlave3"/>
+            </list>
+        </property>
+    </bean>
+    <!-- 数据源配置 -->
+
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.ibingbo.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+
+    <!-- 添加配置事务管理，并指定数据源 -->
+    <bean id="transactionManager" class="com.ibingbo.support.multi.datasource.DynamicDataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!-- 添加配置事务管理，并指定数据源 -->
+
+
+    <!--通过aop使用事务在user service 上-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true" rollback-for="UserException" propagation="REQUIRED"
+                       isolation="READ_COMMITTED" timeout="-1"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+        <aop:pointcut id="userServiceOperation" expression="execution(* com.ibingbo.services.UserService.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="userServiceOperation"/>
+    </aop:config>
+    <!--通过aop使用事务在user service 上-->
+
+
+    <!-- 配置mybatis的sql工厂类，并指定数据源与sql mappper配置 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- mybatis的配置 -->
+        <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+        <property name="mapperLocations" value="classpath:com/ibingbo/config/mapper/*.xml"/>
+    </bean>
+    <!-- 配置mybatis的sql工厂类，并指定数据源与sql mappper配置 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.ibingbo.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+
+    <!-- 配置dao，该dao继承了SqlSessionDaoSupport，故直接指定sqlSessionFactory属性即可 -->
+    <bean id="userDao" class="com.ibingbo.dao.impl.UserDaoImpl">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    <!-- 配置dao，该dao继承了SqlSessionDaoSupport，故直接指定sqlSessionFactory属性即可 -->
+
+
+    <!-- 启用具有注释的事务划分 然后在类或方法里用@Transactional配置注释使用事务-->
+    <tx:annotation-driven transaction-manager="transactionManager" mode="proxy" proxy-target-class="true"/>
+    <!-- 启用具有注释的事务划分 -->
+
+</beans>

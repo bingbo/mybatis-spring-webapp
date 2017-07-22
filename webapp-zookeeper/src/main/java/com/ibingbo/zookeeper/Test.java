@@ -16,7 +16,8 @@ public class Test implements Watcher {
     private static final Logger LOGGER = LoggerFactory.getLogger(Test.class);
 
     private static final int TIMEOUT = 3000;
-    private static final String HOST = "127.0.0.1:2181";
+    //private static final String HOST = "127.0.0.1:2181";
+    private static final String HOST = "10.94.239.21:8181";
     private static CountDownLatch latch = new CountDownLatch(1);
     private static ZooKeeper zooKeeper = null;
     private static ZooKeeper zooKeeper1 = null;

@@ -18,7 +18,6 @@
     <typeAliases>
         <typeAlias alias="User" type="com.ibingbo.models.User"/>
         <typeAlias type="com.ibingbo.models.Account" alias="Account"/>
-        <typeAlias type="com.ibingbo.models.City" alias="City"/>
     </typeAliases>
 
     <typeHandlers>

@@ -25,7 +25,13 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 			/> </mvc:message-converters> -->
 		<!-- 对象转换json的转换器 -->
 	</mvc:annotation-driven>
-
+	<!-- 数据源配置 -->
+	<bean
+			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<value>classpath:jdbc.properties</value>
+		</property>
+	</bean>
 
 	<!-- 手动注册controller,service等bean -->
 	<bean id="employeeService" class="com.ibingbo.services.EmployeeService" />
@@ -64,69 +70,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 	</bean>
 	<!-- freemarker作为模板引擎时的配置 -->
 
-	<!-- 数据源配置 -->
-	<bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<value>classpath:jdbc.properties</value>
-		</property>
-	</bean>
 
-	<bean id="dataSource" destroy-method="close"
-		class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="${jdbc.driverClassName}" />
-		<property name="url" value="${jdbc.url}" />
-		<property name="username" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-	</bean>
-	<!-- 数据源配置 -->
-
-	<!-- 配置mybatis的sql工厂类，并指定数据源与sql mappper配置 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<!-- mybatis的配置 -->
-		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
-		<property name="mapperLocations" value="classpath:com/ibingbo/config/mapper/*.xml" />
-	</bean>
-	<!-- 配置mybatis的sql工厂类，并指定数据源与sql mappper配置 -->
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.ibingbo.mapper" />
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
-    </bean>
-    
-	
-	<!-- 配置dao，该dao继承了SqlSessionDaoSupport，故直接指定sqlSessionFactory属性即可 -->
-	<bean id="userDao" class="com.ibingbo.dao.impl.UserDaoImpl">
-		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
-	</bean>
-	<!-- 配置dao，该dao继承了SqlSessionDaoSupport，故直接指定sqlSessionFactory属性即可 -->
-
-	<!-- 添加配置事务管理，并指定数据源 -->
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
-	<!-- 添加配置事务管理，并指定数据源 -->
-
-	<!--通过aop使用事务在user service 上-->
-	<!--<tx:advice id="txAdvice" transaction-manager="transactionManager">-->
-		<!--<tx:attributes>-->
-			<!--<tx:method name="get*" read-only="true" rollback-for="UserException" propagation="REQUIRED" isolation="READ_COMMITTED" timeout="-1"/>-->
-			<!--<tx:method name="*"/>-->
-		<!--</tx:attributes>-->
-	<!--</tx:advice>-->
-	<!--<aop:config>-->
-		<!--<aop:pointcut id="userServiceOperation" expression="execution(* com.ibingbo.services.UserService.*(..))"/>-->
-		<!--<aop:advisor advice-ref="txAdvice" pointcut-ref="userServiceOperation"/>-->
-	<!--</aop:config>-->
-	<!--通过aop使用事务在user service 上-->
-
-	<!-- 启用具有注释的事务划分 然后在类或方法里用@Transactional配置注释使用事务-->
-	<tx:annotation-driven transaction-manager="transactionManager" mode="proxy" proxy-target-class="true" />
-	<!-- 启用具有注释的事务划分 -->
-	<!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> <property 
-		name="basePackage" value="com.ibingbo.config.mapper" /> </bean> -->
-	<!-- <mybatis:scan base-package="com.ibingbo.dao" /> -->
 
 	<!--拦截器应用-->
 	<bean id="logInterceptor" class="com.ibingbo.interceptor.LogInterceptor"/>
@@ -156,7 +100,10 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 
 
 	<import resource="classpath:spring-bean.xml"/>
-	<import resource="classpath:database-conf.xml" />
-	<import resource="classpath:spring-task-conf.xml"/>
-	<import resource="classpath:spring-rabbitmq-conf.xml"/>
+	<!--<import resource="classpath:spring-task-conf.xml"/>-->
+	<!--<import resource="classpath:spring-rabbitmq-conf.xml"/>-->
+	<!--<import resource="classpath:datasource-config.xml"/>-->
+	<!--<import resource="classpath:database-conf.xml" />-->
+	<!--<import resource="classpath:multi-datasource-conf.xml"/>-->
+	<import resource="classpath:multi-datasource-conf-2.xml"/>
 </beans>

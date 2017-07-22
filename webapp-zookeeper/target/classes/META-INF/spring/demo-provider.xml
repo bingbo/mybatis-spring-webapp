@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:stargate="http://fengchao.baidu.com/dtd/schema/stargate"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+    http://fengchao.baidu.com/dtd/schema/stargate http://fengchao.baidu.com/dtd/schema/stargate/stargate.xsd">
+
+	<!-- ********************************* -->
+	<!-- **         Spring原有配置		** -->
+	<!-- ********************************* -->
+	<bean id="demoService"
+		class="com.baidu.fengchao.stargate.service.impl.DemoServiceImpl" />
+	<bean id="performanceService"
+		class="com.baidu.fengchao.stargate.service.impl.PerformaceServiceImpl" />
+
+
+	<!-- ********************************* -->
+	<!-- **		 	Stargate配置 		** -->
+	<!-- ********************************* -->
+
+	<!-- 1.服务端全局配置：通过该方式全局指定所有stargate:service的stargate:binding.star子标签的配置项，省去逐一配置的繁琐步骤 -->
+	<!-- 2.支持直接写值和${xxx}两种方式配置，${xxx}是从stargate.properties文件中读取对应属性值 -->
+	<stargate:serviceGlobal portRange="${stargate.portRange}"
+		executes="${stargate.executes}" weight="${stargate.weight}"
+		executorPoolSize="${stargate.executorPoolSize}" executorMaxMemorySize="${stargate.executorMaxMemorySize}"
+		executorChannelMaxMemorySize="${stargate.executorChannelMaxMemorySize}"
+		executorKeepAliveTime="10000" />
+
+
+	<!-- 对外发布服务一项服务 -->
+	<stargate:service ref="demoService"
+		interface="com.baidu.fengchao.stargate.service.DemoService"
+		version="${stargate.demoService.provider.version}">
+		<!-- 1.针对具体服务的配置，如果这里配置了某个配置项，则会被框架优先使用，否则使用全局配置stargate:serviceGlobal -->
+		<!-- 2.支持直接写值和${xxx}两种方式配置，${xxx}是从stargate.properties文件中读取对应属性值 -->
+		<stargate:binding.star executes="${stargate.demoService.executes}"
+			executorPoolSize="${stargate.demoService.executorPoolSize}"
+			executorMaxMemorySize="${stargate.demoService.executorMaxMemorySize}"
+			executorChannelMaxMemorySize="${stargate.demoService.executorChannelMaxMemorySize}"
+			executorKeepAliveTime="${stargate.demoService.executorKeepAliveTime}"
+			port="${stargate.demoService.port}" routerClusterTag="${instance.tag}" />
+	</stargate:service>
+	
+	<!-- 对外发布服务一项服务 -->
+	<stargate:service ref="performanceService"
+		interface="com.baidu.fengchao.stargate.service.PerformaceService">
+		<stargate:binding.star executes="9" weight="9"
+			portRange="999-5999" />
+	</stargate:service>
+	
+	<!-- 服务注册中心  -->
+	<stargate:registry address="${stargate.registry.address}"
+		path="${stargate.registry.path}" backup="${stargate.registry.backup}" />	
+    
+	<!-- 服务监控中心   available=false即不启用监控服务  -->
+	<stargate:monitor available="false" />
+
+
+	<bean id="demoServiceAPI" class="com.baidu.rpc.server.RpcExporter">
+		<property name="serviceInterfaceName"
+			value="com.baidu.fengchao.stargate.service.DemoService" />
+		<property name="serviceBean" ref="demoService" />
+	</bean>
+
+	<!--<bean id="jettyAware" class="com.baidu.fengchao.stargate.jetty.JettyAware"-->
+		<!--init-method="init">-->
+	<!--</bean>-->
+
+	<!--<bean id="jettyStartupLister"-->
+		<!--class=" com.baidu.fengchao.stargate.jetty.JettyStartupListener">-->
+		<!--<property name="jettyServer" ref="jettyAware"/>-->
+	<!--</bean>-->
+</beans>
