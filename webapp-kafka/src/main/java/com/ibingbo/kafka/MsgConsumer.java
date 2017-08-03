@@ -14,8 +14,8 @@ import java.util.Properties;
 public class MsgConsumer {
     public static void main(String[] args) {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "10.94.239.21:8092");
-        //props.put("bootstrap.servers", "127.0.0.1:9092");
+//        props.put("bootstrap.servers", "10.94.239.21:8092");
+        props.put("bootstrap.servers", "127.0.0.1:9092");
         props.put("group.id", "testConsumer");
         props.put("enable.auto.commit", "true");
         props.put("auto.commit.interval.ms", "1000");

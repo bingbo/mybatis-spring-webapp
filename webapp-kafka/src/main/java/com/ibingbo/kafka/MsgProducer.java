@@ -10,10 +10,10 @@ import java.util.Properties;
  * Created by bing on 17/5/31.
  */
 public class MsgProducer {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Properties props = new Properties();
-        //props.put("bootstrap.servers", "127.0.0.1:9092");
-        props.put("bootstrap.servers", "10.94.239.21:8092");
+        props.put("bootstrap.servers", "127.0.0.1:9092");
+//        props.put("bootstrap.servers", "10.94.239.21:8092");
         props.put("acks", "all");
         props.put("retries", 0);
         props.put("batch.size", 16384);
@@ -24,7 +24,8 @@ public class MsgProducer {
 
         Producer<String, String> producer = new KafkaProducer<String, String>(props);
         for(int i=0;i<100;i++) {
-            producer.send(new ProducerRecord<String, String>("test", Integer.toString(i), Integer.toString(i)));
+            Thread.sleep(1000);
+            producer.send(new ProducerRecord<String, String>("test", "key"+i, "value"+i));
         }
         producer.close();
     }
