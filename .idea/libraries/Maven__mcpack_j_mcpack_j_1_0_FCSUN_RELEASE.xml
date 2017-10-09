@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: mcpack-j:mcpack-j:1.0.FCSUN.RELEASE">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/mcpack-j/mcpack-j/1.0.FCSUN.RELEASE/mcpack-j-1.0.FCSUN.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/mcpack-j/mcpack-j/1.0.FCSUN.RELEASE/mcpack-j-1.0.FCSUN.RELEASE-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/mcpack-j/mcpack-j/1.0.FCSUN.RELEASE/mcpack-j-1.0.FCSUN.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

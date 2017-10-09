@@ -10,7 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class BeanLifeCycle {
     public static void main(final String[] args) throws Exception {
         //通过反射机制自动识别出配置文件中定义的相应的Processor
-        AbstractApplicationContext ctx = new ClassPathXmlApplicationContext("spring-bean-test.xml");
+        AbstractApplicationContext ctx = new ClassPathXmlApplicationContext("dispatcher-servlet.xml");
         User user = (User) ctx.getBean("user");
         System.out.println(user);
         ctx.registerShutdownHook();

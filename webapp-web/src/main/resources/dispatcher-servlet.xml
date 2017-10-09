@@ -102,8 +102,8 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 	<import resource="classpath:spring-bean.xml"/>
 	<!--<import resource="classpath:spring-task-conf.xml"/>-->
 	<!--<import resource="classpath:spring-rabbitmq-conf.xml"/>-->
-	<!--<import resource="classpath:datasource-config.xml"/>-->
+	<import resource="classpath:datasource-config.xml"/>
 	<!--<import resource="classpath:database-conf.xml" />-->
 	<!--<import resource="classpath:multi-datasource-conf.xml"/>-->
-	<import resource="classpath:multi-datasource-conf-2.xml"/>
+	<!--<import resource="classpath:multi-datasource-conf-2.xml"/>-->
 </beans>

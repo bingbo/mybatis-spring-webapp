@@ -1,10 +1,22 @@
-import freemarker.ext.util.IdentityHashMap;
+import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.collections.map.HashedMap;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Map;
+import com.alibaba.fastjson.JSON;
+import com.ibingbo.test.Student;
+import com.ibingbo.test.User;
+
+import freemarker.ext.util.IdentityHashMap;
+import net.sf.cglib.beans.BeanCopier;
+import net.sf.cglib.core.ReflectUtils;
 
 /**
  * Created by bing on 2017/4/26.
@@ -39,33 +51,33 @@ public class SomeTest {
         System.out.println(map);
         System.out.println(m);
     }
-    class User{
-        private int id;
-        private String name;
-        private boolean running;
 
-        public int getId() {
-            return id;
-        }
 
-        public void setId(int id) {
-            this.id = id;
-        }
 
-        public String getName() {
-            return name;
-        }
 
-        public void setName(String name) {
-            this.name = name;
-        }
 
-        public boolean isRunning() {
-            return running;
-        }
+    @Test
+    public void testBeanToBean() {
 
-        public void setRunning(boolean running) {
-            this.running = running;
-        }
+        BeanCopier copier = BeanCopier.create(User.class, Student.class, false);
+        User user=new User();
+        user.setId(1);
+        user.setName("user1");
+        user.setEmail("email1");
+        Student student = (Student) ReflectUtils.newInstance(Student.class);
+        copier.copy(user, student, null);
+        System.out.println(com.alibaba.fastjson.JSON.toJSONString(student));
+    }
+
+    @Test
+    public void testSome() throws IllegalAccessException, InstantiationException, NoSuchFieldException {
+
+
+        int depth=16;
+        long userid=630152L;
+        int mask = (int)(Math.pow(2, depth) - 1)<< 8;
+        int useridcode = (int)(((userid & mask) >>> 6) | (userid & 0x3));
+        System.out.println(useridcode);
+        System.out.println(userid%16);
     }
 }

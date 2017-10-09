@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: json-rpc:json-rpc:1.0.FCSUN.RELEASE">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/json-rpc/json-rpc/1.0.FCSUN.RELEASE/json-rpc-1.0.FCSUN.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/json-rpc/json-rpc/1.0.FCSUN.RELEASE/json-rpc-1.0.FCSUN.RELEASE-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/json-rpc/json-rpc/1.0.FCSUN.RELEASE/json-rpc-1.0.FCSUN.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/webapp.iml" filepath="$PROJECT_DIR$/webapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webapp-boot/webapp-boot.iml" filepath="$PROJECT_DIR$/webapp-boot/webapp-boot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webapp-kafka/webapp-kafka.iml" filepath="$PROJECT_DIR$/webapp-kafka/webapp-kafka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webapp-rabbitmq/webapp-rabbitmq.iml" filepath="$PROJECT_DIR$/webapp-rabbitmq/webapp-rabbitmq.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webapp-util/webapp-util.iml" filepath="$PROJECT_DIR$/webapp-util/webapp-util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webapp-web/webapp-web.iml" filepath="$PROJECT_DIR$/webapp-web/webapp-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webapp-zookeeper/webapp-zookeeper.iml" filepath="$PROJECT_DIR$/webapp-zookeeper/webapp-zookeeper.iml" />
+    </modules>
+  </component>
+</project>

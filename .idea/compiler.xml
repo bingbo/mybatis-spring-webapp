@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="webapp-boot" />
+        <module name="webapp-kafka" />
+        <module name="webapp-rabbitmq" />
+        <module name="webapp-util" />
+        <module name="webapp-zookeeper" />
+      </profile>
+      <profile name="Annotation profile for webapp" enabled="true">
+        <sourceOutputDir name="../../../../Work/tomcat-8.0.38/webapps/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../../../Work/tomcat-8.0.38/webapps/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="webapp-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="webapp" target="1.5" />
+      <module name="webapp-boot" target="1.5" />
+      <module name="webapp-kafka" target="1.8" />
+      <module name="webapp-rabbitmq" target="1.5" />
+      <module name="webapp-util" target="1.5" />
+      <module name="webapp-web" target="1.7" />
+      <module name="webapp-zookeeper" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
