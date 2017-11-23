@@ -1,5 +1,6 @@
 package com.ibingbo.test;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -63,4 +64,36 @@ public class User<T> {
     public void setStudentArray(Student[] studentArray) {
         this.studentArray = studentArray;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        User<?> user = (User<?>) o;
+
+        if (id != null ? !id.equals(user.id) : user.id != null) {
+            return false;
+        }
+        if (name != null ? !name.equals(user.name) : user.name != null) {
+            return false;
+        }
+        if (email != null ? !email.equals(user.email) : user.email != null) {
+            return false;
+        }
+        if (data != null ? !data.equals(user.data) : user.data != null) {
+            return false;
+        }
+        if (students != null ? !students.equals(user.students) : user.students != null) {
+            return false;
+        }
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(studentArray, user.studentArray);
+    }
+
+
 }

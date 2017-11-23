@@ -28,6 +28,13 @@ http://www.springframework.org/schema/mvc
 	</bean>
 	<!-- 数据源配置 -->
 
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+    <bean id="daoSupport" class="com.ibingbo.support.jdbc.dao.DaoSupport">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
 	<!-- 配置mybatis的sql工厂类，并指定数据源与sql mappper配置 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />

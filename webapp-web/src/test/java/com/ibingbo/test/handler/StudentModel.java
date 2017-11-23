@@ -1,0 +1,10 @@
+package com.ibingbo.test.handler;
+
+/**
+ * StudentModel
+ *
+ * @author zhangbingbing
+ * @date 17/11/23
+ */
+public class StudentModel extends Model{
+}

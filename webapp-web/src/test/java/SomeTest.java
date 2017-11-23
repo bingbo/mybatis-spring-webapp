@@ -4,6 +4,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.junit.Test;
@@ -11,6 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
+import com.ibingbo.test.APIField;
+import com.ibingbo.test.POField;
 import com.ibingbo.test.Student;
 import com.ibingbo.test.User;
 
@@ -26,7 +32,7 @@ public class SomeTest {
     private final static Logger LOGGER = LoggerFactory.getLogger(SomeTest.class);
 
     @Test
-    public void testLog() throws Exception{
+    public void testLog() throws Exception {
         try {
             String str = null;
             System.out.println(str.length());
@@ -52,15 +58,11 @@ public class SomeTest {
         System.out.println(m);
     }
 
-
-
-
-
     @Test
     public void testBeanToBean() {
 
         BeanCopier copier = BeanCopier.create(User.class, Student.class, false);
-        User user=new User();
+        User user = new User();
         user.setId(1);
         user.setName("user1");
         user.setEmail("email1");
@@ -72,12 +74,41 @@ public class SomeTest {
     @Test
     public void testSome() throws IllegalAccessException, InstantiationException, NoSuchFieldException {
 
-
-        int depth=16;
-        long userid=630152L;
-        int mask = (int)(Math.pow(2, depth) - 1)<< 8;
-        int useridcode = (int)(((userid & mask) >>> 6) | (userid & 0x3));
+        int depth = 16;
+        long userid = 630152L;
+        int mask = (int) (Math.pow(2, depth) - 1) << 8;
+        int useridcode = (int) (((userid & mask) >>> 6) | (userid & 0x3));
         System.out.println(useridcode);
-        System.out.println(userid%16);
+        System.out.println(userid % 16);
+        A:
+        for (int i = 0; i < 10; i++) {
+            B:
+            for (int j = 0; j < 10; j++) {
+                C:
+                for (int m = 0; m < 10; m++) {
+                    System.out.println(i * j * m);
+                    if (i * j * m % 2 == 0) {
+                        break A;
+                    }
+                }
+            }
+        }
+
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(10, 10, 100, TimeUnit.SECONDS,new LinkedBlockingDeque
+                <Runnable>(10));
+        executor.submit(new Callable<Object>() {
+            @Override
+            public Object call() throws Exception {
+                return null;
+            }
+        });
+    }
+
+    @Test
+    public void testEnum() {
+        APIField field = POField.test;
+        System.out.println(field.name());
+        System.out.println(field.of("test"));
+        System.out.println(field.ordinal());
     }
 }
