@@ -13,6 +13,7 @@ import org.apache.commons.collections.map.HashedMap;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.ibingbo.test.APIField;
@@ -105,10 +106,92 @@ public class SomeTest {
     }
 
     @Test
-    public void testEnum() {
+    public void testEnum() throws InstantiationException, IllegalAccessException {
         APIField field = POField.test;
         System.out.println(field.name());
         System.out.println(field.of("test"));
         System.out.println(field.ordinal());
+
+        A a = new A();
+        a.setId(1);
+        a.setName("aaa");
+        a.setPassword("aaa");
+        B b = new B();
+        copy(a, b);
+        B bb = this.copy(a, B.class);
+        LOGGER.info("result is: {}",b);
+        LOGGER.info("result is: {}",bb);
     }
+
+    private void copy(A a,B b) {
+        BeanUtils.copyProperties(a,b);
+    }
+
+    private <S,T> T copy(S a,Class<T> bClass) throws IllegalAccessException, InstantiationException {
+        T b = bClass.newInstance();
+        BeanUtils.copyProperties(a,b);
+        return b;
+    }
+
+    public static class A{
+        private Integer id;
+        private String name;
+        private String password;
+
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+    }
+
+    public static class B{
+        private Integer id;
+        private String name;
+        private String password;
+
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+    }
+
+
 }

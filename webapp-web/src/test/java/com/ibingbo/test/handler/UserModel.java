@@ -7,4 +7,7 @@ package com.ibingbo.test.handler;
  * @date 17/11/23
  */
 public class UserModel extends Model{
+    public UserModel(Integer id) {
+        super(id);
+    }
 }
