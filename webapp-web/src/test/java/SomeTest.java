@@ -2,6 +2,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -16,6 +17,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.ibingbo.annotation.Log;
 import com.ibingbo.test.APIField;
 import com.ibingbo.test.POField;
 import com.ibingbo.test.Student;
@@ -106,6 +109,24 @@ public class SomeTest {
     }
 
     @Test
+    public void testJson() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("mtid", 123456L);
+        map.put("pic_url", "http://www.baidu.com/a.jpg");
+        map.put("pictures", new String[] {"http://www.baidu.com/1.jpg", "http://www.baidu.com/2.jpg"});
+        map.put("bid", 5.0);
+        String jstr = JSON.toJSONString(map);
+        System.out.println(jstr);
+
+        JSONObject jsonObject = JSON.parseObject(jstr);
+        System.out.println(jsonObject.getInteger("mtid"));
+        System.out.println(jsonObject.getString("pic_url"));
+        System.out.println(jsonObject.getString("pictures"));
+        System.out.println(jsonObject.getDouble("bid"));
+
+    }
+
+    @Test
     public void testEnum() throws InstantiationException, IllegalAccessException {
         APIField field = POField.test;
         System.out.println(field.name());
@@ -123,6 +144,19 @@ public class SomeTest {
         LOGGER.info("result is: {}",bb);
     }
 
+    @Test
+    public void testA() throws NoSuchFieldException {
+        Field field = A.class.getDeclaredField("id");
+        System.out.println(field.isAnnotationPresent(Log.class));
+        long num = 1234_5678L;
+        System.out.println(num);
+        int bitmask = 0x000F;
+        int val = 0x2222;
+        // prints "2"
+        System.out.println(val & bitmask);
+
+    }
+
     private void copy(A a,B b) {
         BeanUtils.copyProperties(a,b);
     }
@@ -134,6 +168,7 @@ public class SomeTest {
     }
 
     public static class A{
+        @Log
         private Integer id;
         private String name;
         private String password;

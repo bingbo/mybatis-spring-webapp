@@ -16,6 +16,13 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: com.baidu.fengchao.adcore:fc-adcore-api:3.3.78" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:com.springsource.org.apache.commons.lang:2.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.aspectj:com.springsource.org.aspectj.weaver:1.6.8.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-beans:3.2.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.3.2" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.5" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.zookeeper:zookeeper:3.4.9" level="project" />
     <orderEntry type="library" name="Maven: jline:jline:0.9.94" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty:3.10.5.Final" level="project" />
@@ -31,8 +38,6 @@
     <orderEntry type="library" name="Maven: com.dyuproject.protostuff:protostuff-api:1.0.7-FC2" level="project" />
     <orderEntry type="library" name="Maven: com.dyuproject.protostuff:protostuff-collectionschema:1.0.7-FC2" level="project" />
     <orderEntry type="library" name="Maven: com.dyuproject.protostuff:protostuff-core:1.0.7-FC2" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.5" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.5" level="project" />
     <orderEntry type="library" name="Maven: com.baidu.fengchao:fc-ether-client:1.2.12" level="project" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.16" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.1" level="project" />
@@ -43,7 +48,6 @@
     <orderEntry type="library" name="Maven: com.baidu:mcpack-j:1.0.2" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.netty:netty:3.2.7.Final" level="project" />
     <orderEntry type="library" name="Maven: com.github:zookee:1.1.4" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-beans:3.2.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:3.2.7.RELEASE" level="project" />

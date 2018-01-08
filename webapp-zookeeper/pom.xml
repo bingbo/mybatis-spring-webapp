@@ -15,6 +15,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
     <dependencies>
         <!--zookeeper-->
         <dependency>
+            <groupId>com.baidu.fengchao.adcore</groupId>
+            <artifactId>fc-adcore-api</artifactId>
+            <version>3.3.78</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
             <version>3.4.9</version>
