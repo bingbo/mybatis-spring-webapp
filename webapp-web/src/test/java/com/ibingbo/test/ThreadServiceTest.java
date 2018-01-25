@@ -68,4 +68,9 @@ public class ThreadServiceTest {
             }
         };
     }
+
+    @Test
+    public void testExecutor() {
+
+    }
 }

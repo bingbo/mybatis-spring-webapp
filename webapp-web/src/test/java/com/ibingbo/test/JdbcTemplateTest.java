@@ -60,6 +60,22 @@ public class JdbcTemplateTest {
     }
 
     @Test
+    public void testBatchUpdate() {
+        List<Object[]> list = new ArrayList<>();
+        for (int i = 10; i < 37; i++) {
+
+            list.add(new Object[] {i, "dddddd", "yyyyyy",i});
+        }
+        int s = Instant.now().getNano();
+//        int[] res = this.jdbcTemplate.batchUpdate("update user set id=?,password=?,name=? where id=?",list);
+        for(int i=0;i<list.size();i++) {
+            this.jdbcTemplate.update("update user set id=?,password=?,name=? where id=?", list.get(i));
+        }
+        int e = Instant.now().getNano();
+        LOG.info("res take {} ns", (e - s)/1000000);
+    }
+
+    @Test
     public void testDaoQuery() {
 
         QueryCondition condition = new QueryCondition();

@@ -1,7 +1,12 @@
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -127,7 +132,7 @@ public class SomeTest {
     }
 
     @Test
-    public void testEnum() throws InstantiationException, IllegalAccessException {
+    public void testEnum() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         APIField field = POField.test;
         System.out.println(field.name());
         System.out.println(field.of("test"));
@@ -142,6 +147,18 @@ public class SomeTest {
         B bb = this.copy(a, B.class);
         LOGGER.info("result is: {}",b);
         LOGGER.info("result is: {}",bb);
+
+        List<String> test = Arrays.asList("hell", "bill");
+        Enumeration<String> aa = Collections.enumeration(test);
+        while (aa.hasMoreElements()) {
+            System.out.println(aa.nextElement());
+        }
+
+        System.out.println(double[].class);
+        System.out.println(Class.forName("[D"));
+        System.out.println(String[][].class);
+        System.out.println(Class.forName("[[Ljava.lang.String;"));
+
     }
 
     @Test
@@ -154,6 +171,11 @@ public class SomeTest {
         int val = 0x2222;
         // prints "2"
         System.out.println(val & bitmask);
+        for (int i=0;i<3;i++) {
+            System.out.println((int) Math.random() * 10);
+        }
+
+        System.out.println(Paths.get("/Users"));
 
     }
 
@@ -166,6 +188,8 @@ public class SomeTest {
         BeanUtils.copyProperties(a,b);
         return b;
     }
+
+
 
     public static class A{
         @Log

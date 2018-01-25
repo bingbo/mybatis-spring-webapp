@@ -25,7 +25,7 @@
       <module name="webapp-kafka" target="1.8" />
       <module name="webapp-rabbitmq" target="1.5" />
       <module name="webapp-util" target="1.5" />
-      <module name="webapp-web" target="1.7" />
+      <module name="webapp-web" target="1.8" />
       <module name="webapp-zookeeper" target="1.5" />
     </bytecodeTargetLevel>
   </component>

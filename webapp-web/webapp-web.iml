@@ -19,7 +19,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$USER_HOME$/Work/tomcat-8.0.38/webapps/classes" />
     <output-test url="file://$USER_HOME$/Work/tomcat-8.0.38/webapps/test-classes" />
     <content url="file://$MODULE_DIR$">

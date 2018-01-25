@@ -1,5 +1,8 @@
 package com.ibingbo.test;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -30,5 +33,15 @@ public class EnumTest {
             System.out.println(gender.getName());
             System.out.println(gender.name());
         }
+    }
+
+    @Test
+    public void testA() {
+        Class cls = Gender.class;
+        Field[] fields = cls.getDeclaredFields();
+        for (Field field : fields) {
+            System.out.println(field.getName()+field.isEnumConstant());
+        }
+        System.out.println(Arrays.asList(Gender.class.getEnumConstants()));
     }
 }
