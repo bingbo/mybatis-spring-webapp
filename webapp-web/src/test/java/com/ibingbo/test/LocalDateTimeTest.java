@@ -160,4 +160,13 @@ public class LocalDateTimeTest {
         ChronoLocalDate chronoLocalDate = JapaneseChronology.INSTANCE.dateNow();
         System.out.println(chronoLocalDate);
     }
+
+    @Test
+    public void testA() {
+        LocalDate d1 = LocalDate.of(2017, 8, 9);
+        LocalDate df = LocalDate.of(2017, 1, 1);
+        System.out.println(Period.between(df, d1).getDays());
+        System.out.println(df.until(d1).getDays());
+        System.out.println(df.until(d1,ChronoUnit.DAYS));
+    }
 }
